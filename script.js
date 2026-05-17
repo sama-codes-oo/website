@@ -4,10 +4,23 @@ const menuToggle = document.getElementById("menu-toggle");
 const themeToggle = document.getElementById("theme-toggle");
 const storedTheme = localStorage.getItem("theme");
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const themeIcons = {
+  moon: '<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.99 12.62A8.5 8.5 0 1 1 11.38 3.01 6.5 6.5 0 0 0 20.99 12.62Z"></path></svg>',
+  sun: '<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>'
+};
+
+function syncThemeButton() {
+  if (!themeToggle) return;
+  const isDark = root.getAttribute("data-theme") === "dark";
+  themeToggle.innerHTML = isDark ? themeIcons.sun : themeIcons.moon;
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+}
 
 if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
   root.setAttribute("data-theme", "dark");
 }
+
+syncThemeButton();
 
 themeToggle?.addEventListener("click", () => {
   const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -17,6 +30,7 @@ themeToggle?.addEventListener("click", () => {
     root.removeAttribute("data-theme");
   }
   localStorage.setItem("theme", nextTheme);
+  syncThemeButton();
 });
 
 menuToggle?.addEventListener("click", () => {

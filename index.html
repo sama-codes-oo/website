@@ -34,9 +34,9 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="icon-btn" type="button" id="theme-toggle" aria-label="Toggle dark mode">
+        <button class="icon-btn" type="button" id="theme-toggle" aria-label="Switch to dark mode">
           <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            <path d="M20.99 12.62A8.5 8.5 0 1 1 11.38 3.01 6.5 6.5 0 0 0 20.99 12.62Z"></path>
           </svg>
         </button>
         <button class="icon-btn menu-toggle" type="button" id="menu-toggle" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
@@ -51,13 +51,13 @@
   <main id="main" class="page-shell">
     <section class="hero" id="home" aria-labelledby="home-title">
       <div>
-        <div class="notice" role="status" aria-label="Upcoming event updates">
+        <a class="notice" href="announcements.html" aria-label="Open upcoming event announcements">
           <div class="notice-track">
             <span class="notice-item"><span class="notice-dot" aria-hidden="true"></span><strong>Upcoming event</strong><span>Next fan meetup announcement coming soon: date, city, theme, and RSVP details.</span></span>
             <span class="notice-item" aria-hidden="true"><span class="notice-dot"></span><strong>Upcoming event</strong><span>Next fan meetup announcement coming soon: date, city, theme, and RSVP details.</span></span>
             <span class="notice-item" aria-hidden="true"><span class="notice-dot"></span><strong>Upcoming event</strong><span>Next fan meetup announcement coming soon: date, city, theme, and RSVP details.</span></span>
           </div>
-        </div>
+        </a>
         <p class="eyebrow">India-based fan community</p>
         <h1 id="home-title">Where fandom meets culture, creativity, and community.</h1>
         <p class="hero-copy">BLxKpopCrew brings BL, K-pop, and Asian pop culture fans together through watch parties, crossover nights, pop-ups, reviews, photo archives, and warm offline moments across India.</p>
@@ -84,37 +84,39 @@
         </div>
         <p>Browse event memories, read BL reviews, track announcements, or reach the crew for community and collaboration requests.</p>
       </div>
-      <div class="grid">
-        <a class="card" href="archive.html">
+      <div class="feature-layout">
+        <a class="feature-card" href="archive.html">
           <span class="tag">Photo gallery</span>
           <h3>BLxKpop Archive</h3>
           <p>Photos and videos from crew events, fan tables, themed keepsakes, and shared fandom moments.</p>
+          <span class="card-cta">Open archive <span aria-hidden="true">-></span></span>
         </a>
-        <a class="card" href="talk-zone.html">
-          <span class="tag">Reviews</span>
-          <h3>BL Talk Zone</h3>
-          <p>Regional review lanes for Thai, Japanese, Korean, Chinese, Taiwanese, and Western BL.</p>
-        </a>
-        <a class="card" href="announcements.html">
-          <span class="tag">Notifications</span>
-          <h3>Announcements</h3>
-          <p>Event labels, RSVP windows, city updates, and important community notices.</p>
-        </a>
-        <a class="card" href="merch-store.html">
-          <span class="tag">Merch</span>
-          <h3>Merch Store</h3>
-          <p>Official merch drops, event keepsakes, and fan table updates.</p>
-        </a>
-        <a class="card" href="#contact">
-          <span class="tag">Community</span>
-          <h3>Join or collaborate</h3>
-          <p>Send event ideas, collab proposals, WhatsApp queries, or city requests directly to the crew.</p>
-        </a>
-        <a class="card" href="https://www.instagram.com/blxkpopcrew/" target="_blank" rel="noopener">
-          <span class="tag">Instagram</span>
-          <h3>Follow the crew</h3>
-          <p>Event posts, pinned updates, reels, and community drops are shared on Instagram.</p>
-        </a>
+        <div class="quick-grid">
+          <a class="card" href="talk-zone.html">
+            <span class="tag">Reviews</span>
+            <h3>BL Talk Zone</h3>
+            <p>Regional review lanes for Thai, Japanese, Korean, Chinese, Taiwanese, and Western BL.</p>
+            <span class="card-cta">Explore reviews <span aria-hidden="true">-></span></span>
+          </a>
+          <a class="card" href="announcements.html">
+            <span class="tag">Notifications</span>
+            <h3>Announcements</h3>
+            <p>Event labels, RSVP windows, city updates, and important community notices.</p>
+            <span class="card-cta">View updates <span aria-hidden="true">-></span></span>
+          </a>
+          <a class="card" href="merch-store.html">
+            <span class="tag">Merch</span>
+            <h3>Merch Store</h3>
+            <p>Official merch drops, event keepsakes, and fan table updates.</p>
+            <span class="card-cta">See merch <span aria-hidden="true">-></span></span>
+          </a>
+          <a class="card" href="https://www.instagram.com/blxkpop.crew/" target="_blank" rel="noopener">
+            <span class="tag">Instagram</span>
+            <h3>Follow the crew</h3>
+            <p>Event posts, pinned updates, reels, and community drops are shared on Instagram.</p>
+            <span class="card-cta">Open Instagram <span aria-hidden="true">-></span></span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -126,21 +128,24 @@
         </div>
         <p>Watch parties, crossover nights, and collaborations are organized so visitors can move from event type to recap in one click.</p>
       </div>
-      <div class="grid">
+      <div class="event-grid">
         <a class="card" href="watch-parties.html">
           <span class="tag">Month-wise list</span>
           <h3>BL Watch Parties</h3>
           <p>Curated screenings organized month by month, with recap links for highlights, photos, and fan reactions.</p>
+          <span class="card-cta">View watch parties <span aria-hidden="true">-></span></span>
         </a>
         <a class="card" href="kpop-crossover-nights.html">
           <span class="tag">Month-wise list</span>
           <h3>K-pop Crossover Nights</h3>
           <p>Playlist nights, comebacks, fan games, themed swaps, and recap links grouped by month.</p>
+          <span class="card-cta">View crossover nights <span aria-hidden="true">-></span></span>
         </a>
         <a class="card" href="popups-partnerships.html">
           <span class="tag">Collabs</span>
           <h3>Pop-ups and Partnerships</h3>
           <p>Partner-led fan experiences listed by collaborator, event name, venue note, and recap.</p>
+          <span class="card-cta">View partnerships <span aria-hidden="true">-></span></span>
         </a>
       </div>
     </section>
@@ -153,22 +158,29 @@
         </div>
         <p>We create offline and online spaces where fans can discover stories, celebrate music, make friends, and feel at home in Asian pop culture fandom.</p>
       </div>
-      <div class="grid">
-        <article class="card">
-          <span class="tag">Connect</span>
-          <h3>Find people who get it</h3>
-          <p>From one favorite series to a full watchlist, fans deserve a place where their excitement lands easily.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Celebrate</span>
-          <h3>Turn releases into memories</h3>
-          <p>Watch parties, comeback nights, birthdays, finales, and pop-ups become shared moments instead of solo scrolling.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Create</span>
-          <h3>Build fan-led culture</h3>
-          <p>Reviews, recaps, photos, reels, merch tables, and partner events keep the community active between meetups.</p>
-        </article>
+      <div class="values-layout">
+        <div class="panel">
+          <p class="eyebrow">Community pulse</p>
+          <h3>Small moments, real connection</h3>
+          <p class="hero-copy">The crew turns online excitement into shared rooms, familiar faces, watchlists, photos, and stories people can return to.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <span class="tag">Connect</span>
+            <h3>Find people who get it</h3>
+            <p>From one favorite series to a full watchlist, fans deserve a place where their excitement lands easily.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Celebrate</span>
+            <h3>Turn releases into memories</h3>
+            <p>Watch parties, comeback nights, birthdays, finales, and pop-ups become shared moments instead of solo scrolling.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Create</span>
+            <h3>Build fan-led culture</h3>
+            <p>Reviews, recaps, photos, reels, merch tables, and partner events keep the community active between meetups.</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -225,7 +237,17 @@
           <p class="eyebrow">Contact</p>
           <h2 id="contact-title">Join the next BLxKpopCrew moment.</h2>
         </div>
-        <p>Location: India. For WhatsApp queries, send your message here or email the crew directly.</p>
+        <div class="contact-links">
+          <a class="social-link" href="https://www.instagram.com/blxkpop.crew/" target="_blank" rel="noopener" aria-label="Open BLxKpopCrew on Instagram">
+            <span class="instagram-mark" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C5.83 0 5.56.01 4.71.05 3.86.09 3.28.22 2.77.42a3.6 3.6 0 0 0-1.3.85 3.6 3.6 0 0 0-.85 1.3c-.2.51-.33 1.09-.37 1.94C.01 5.56 0 5.83 0 8s.01 2.44.05 3.29c.04.85.17 1.43.37 1.94.21.53.49.98.85 1.3.36.36.77.64 1.3.85.51.2 1.09.33 1.94.37.85.04 1.12.05 3.29.05s2.44-.01 3.29-.05c.85-.04 1.43-.17 1.94-.37.53-.21.98-.49 1.3-.85.36-.36.64-.77.85-1.3.2-.51.33-1.09.37-1.94.04-.85.05-1.12.05-3.29s-.01-2.44-.05-3.29c-.04-.85-.17-1.43-.37-1.94a3.6 3.6 0 0 0-.85-1.3 3.6 3.6 0 0 0-1.3-.85c-.51-.2-1.09-.33-1.94-.37C10.44.01 10.17 0 8 0Zm0 1.44c2.13 0 2.38.01 3.22.05.78.04 1.2.17 1.48.28.37.14.63.31.91.59.28.28.45.54.59.91.11.28.24.7.28 1.48.04.84.05 1.09.05 3.22s-.01 2.38-.05 3.22c-.04.78-.17 1.2-.28 1.48-.14.37-.31.63-.59.91-.28.28-.54.45-.91.59-.28.11-.7.24-1.48.28-.84.04-1.09.05-3.22.05s-2.38-.01-3.22-.05c-.78-.04-1.2-.17-1.48-.28a2.15 2.15 0 0 1-.91-.59 2.15 2.15 0 0 1-.59-.91c-.11-.28-.24-.7-.28-1.48-.04-.84-.05-1.09-.05-3.22s.01-2.38.05-3.22c.04-.78.17-1.2.28-1.48.14-.37.31-.63.59-.91.28-.28.54-.45.91-.59.28-.11.7-.24 1.48-.28.84-.04 1.09-.05 3.22-.05Z"></path>
+                <path d="M8 3.89A4.11 4.11 0 1 0 8 12.1 4.11 4.11 0 0 0 8 3.89Zm0 6.78A2.67 2.67 0 1 1 8 5.33a2.67 2.67 0 0 1 0 5.34Zm5.23-6.94a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0Z"></path>
+              </svg>
+            </span>
+            <span>@blxkpop.crew</span>
+          </a>
+        </div>
       </div>
       <form class="contact" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <label>Name
@@ -251,6 +273,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=theme-icons"></script>
 </body>
 </html>
