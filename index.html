@@ -3,561 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="BLxKpopCrew is a vibrant fan community uniting BL, K-pop, and Asian pop culture through events, content, collaborations, and unforgettable experiences." />
+  <meta name="description" content="BLxKpopCrew is an India-based fan community uniting BL, K-pop, and Asian pop culture through events, reviews, photo archives, announcements, and collaborations." />
   <meta name="theme-color" content="#fde8f2" />
   <meta property="og:title" content="BLxKpopCrew | BL, K-pop & Asian Pop Culture" />
-  <meta property="og:description" content="A vibrant fan community for BL, K-pop, Asian pop culture events, content, collaborations, and unforgettable fandom experiences." />
+  <meta property="og:description" content="India-based BL and K-pop fan community for events, reviews, announcements, archives, and fandom moments." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="photos%20and%20videos/logo.jpg" />
   <title>BLxKpopCrew | BL, K-pop & Asian Pop Culture</title>
-
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #ffd7ea;
-      --surface: #fff1f8;
-      --surface-strong: #ffffff;
-      --ink: #171943;
-      --muted: #695973;
-      --brand: #ec5b9c;
-      --brand-strong: #171943;
-      --sage: #65d6ec;
-      --gold: #a982ff;
-      --rose: #ff6da9;
-      --line: #f4b7d3;
-      --shadow: 0 18px 45px rgba(236, 91, 156, 0.18);
-      --focus: 0 0 0 3px rgba(101, 214, 236, 0.4);
-      --radius: 8px;
-      --max: 1160px;
-    }
-
-    [data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #10122e;
-      --surface: #171943;
-      --surface-strong: #20265d;
-      --ink: #fff5fb;
-      --muted: #d9c7e2;
-      --brand: #ff70ad;
-      --brand-strong: #c8f6ff;
-      --sage: #78e9f8;
-      --gold: #b99bff;
-      --rose: #ff7cb5;
-      --line: #363b78;
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
-      --focus: 0 0 0 3px rgba(197, 163, 223, 0.35);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-    }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(101, 214, 236, 0.38), transparent 26rem),
-        radial-gradient(circle at 88% 12%, rgba(255, 109, 169, 0.42), transparent 24rem),
-        linear-gradient(180deg, #ffd2e7 0%, var(--bg) 42%, #fff1f8 100%);
-      color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.55;
-      text-rendering: optimizeLegibility;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-    button, input, textarea { font: inherit; }
-    :focus-visible { border-radius: var(--radius); box-shadow: var(--focus); outline: 0; }
-
-    .skip-link {
-      background: var(--surface-strong);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      left: 1rem;
-      padding: 0.65rem 0.9rem;
-      position: absolute;
-      top: -5rem;
-      z-index: 10;
-    }
-
-    .skip-link:focus { top: 1rem; }
-
-    .site-header {
-      backdrop-filter: blur(18px);
-      background: color-mix(in srgb, var(--surface) 88%, transparent);
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-    }
-
-    .nav-wrap {
-      align-items: center;
-      display: flex;
-      gap: 1rem;
-      justify-content: space-between;
-      margin: 0 auto;
-      max-width: var(--max);
-      min-height: 72px;
-      padding: 0 1.25rem;
-    }
-
-    .brand {
-      align-items: center;
-      display: inline-flex;
-      font-size: 1.08rem;
-      font-weight: 800;
-      gap: 0.65rem;
-      letter-spacing: 0;
-    }
-
-    .brand-logo {
-      background: var(--surface-strong);
-      border: 1px solid color-mix(in srgb, var(--sage) 50%, var(--line));
-      border-radius: var(--radius);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 14%, transparent);
-      height: 48px;
-      object-fit: contain;
-      object-position: center;
-      width: 36px;
-    }
-
-    .nav-links {
-      align-items: center;
-      display: flex;
-      gap: 0.15rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-links a {
-      border-radius: var(--radius);
-      color: var(--muted);
-      display: inline-flex;
-      font-size: 0.94rem;
-      font-weight: 650;
-      padding: 0.55rem 0.7rem;
-    }
-
-    .nav-links a:hover,
-    .nav-links a[aria-current="page"] {
-      background: color-mix(in srgb, var(--brand) 13%, transparent);
-      color: var(--brand-strong);
-    }
-
-    .nav-actions { align-items: center; display: flex; gap: 0.5rem; }
-
-    .icon-btn {
-      align-items: center;
-      background: var(--surface-strong);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      color: var(--ink);
-      cursor: pointer;
-      display: inline-flex;
-      height: 42px;
-      justify-content: center;
-      padding: 0;
-      transition: border-color 160ms ease, transform 160ms ease;
-      width: 42px;
-    }
-
-    .icon-btn:hover { border-color: var(--brand); transform: translateY(-1px); }
-    .menu-toggle { display: none; }
-
-    .page-shell {
-      margin: 0 auto;
-      max-width: var(--max);
-      padding: 0 1.25rem;
-    }
-
-    section { scroll-margin-top: 96px; }
-
-    .hero {
-      align-items: center;
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.86fr);
-      min-height: calc(100vh - 72px);
-      padding: 2.4rem 0 2.25rem;
-    }
-
-    .eyebrow {
-      color: var(--sage);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      margin: 0 0 0.85rem;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3 { letter-spacing: 0; line-height: 1.08; margin: 0; }
-    h1 { font-size: clamp(2.15rem, 4.6vw, 4.35rem); max-width: 720px; }
-    h2 { font-size: clamp(2rem, 3vw, 3.1rem); }
-    h3 { font-size: 1.08rem; }
-
-    .hero-copy {
-      color: var(--muted);
-      font-size: clamp(0.98rem, 1.25vw, 1.12rem);
-      margin: 1rem 0 1.35rem;
-      max-width: 620px;
-    }
-
-    .button-row { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-
-    .btn {
-      align-items: center;
-      background: var(--brand-strong);
-      border: 1px solid var(--brand-strong);
-      border-radius: var(--radius);
-      color: #fff;
-      display: inline-flex;
-      font-weight: 750;
-      gap: 0.5rem;
-      min-height: 46px;
-      padding: 0.7rem 1rem;
-      transition: background 160ms ease, transform 160ms ease;
-    }
-
-    .btn:hover { background: var(--brand); transform: translateY(-1px); }
-
-    .btn.secondary {
-      background: transparent;
-      border-color: var(--line);
-      color: var(--ink);
-    }
-
-    .btn.secondary:hover {
-      background: var(--surface-strong);
-      border-color: var(--sage);
-    }
-
-    .hero-media {
-      aspect-ratio: 4 / 4.65;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-      max-height: calc(100vh - 128px);
-    }
-
-    .hero-media img,
-    .hero-media video {
-      height: 100%;
-      object-fit: cover;
-      width: 100%;
-    }
-
-    .hero-note {
-      background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      bottom: 1rem;
-      left: 1rem;
-      max-width: calc(100% - 2rem);
-      padding: 0.9rem 1rem;
-      position: absolute;
-    }
-
-    .hero-note strong { display: block; font-size: 0.92rem; }
-    .hero-note span { color: var(--muted); display: block; font-size: 0.86rem; margin-top: 0.15rem; }
-
-    .section-block { padding: 4.5rem 0; }
-
-    .section-head {
-      align-items: end;
-      display: flex;
-      gap: 1.5rem;
-      justify-content: space-between;
-      margin-bottom: 1.4rem;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      margin: 0;
-      max-width: 470px;
-    }
-
-    .grid {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      min-height: 100%;
-      padding: 1.1rem;
-      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-    }
-
-    .card:hover {
-      border-color: color-mix(in srgb, var(--brand) 42%, var(--line));
-      box-shadow: var(--shadow);
-      transform: translateY(-3px);
-    }
-
-    .card p { color: var(--muted); margin: 0.75rem 0 0; }
-
-    .tag {
-      color: var(--gold);
-      display: inline-block;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.75rem;
-      text-transform: uppercase;
-    }
-
-    .media-grid {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: 1.15fr 0.85fr 0.85fr;
-    }
-
-    .photo {
-      aspect-ratio: 1 / 1;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .photo:first-child {
-      grid-row: span 2;
-    }
-
-    .photo img {
-      height: 100%;
-      object-fit: cover;
-      transition: transform 300ms ease;
-      width: 100%;
-    }
-
-    .photo:hover img { transform: scale(1.035); }
-
-    .logo-photo {
-      background: linear-gradient(135deg, #fde8f2, #f8d7ea);
-    }
-
-    .logo-photo img {
-      object-fit: contain;
-      padding: 0.55rem;
-    }
-
-    .video-grid {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .video-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .video-card video {
-      aspect-ratio: 16 / 10;
-      background: var(--brand-strong);
-      display: block;
-      object-fit: cover;
-      width: 100%;
-    }
-
-    .video-card figcaption {
-      color: var(--muted);
-      font-size: 0.95rem;
-      padding: 0.85rem 1rem 1rem;
-    }
-
-    .split {
-      align-items: center;
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: 0.9fr 1.1fr;
-    }
-
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 1.35rem;
-    }
-
-    .stats {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(3, 1fr);
-      margin-top: 1.5rem;
-    }
-
-    .stat {
-      border-left: 3px solid var(--sage);
-      padding-left: 0.85rem;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.55rem;
-      line-height: 1;
-    }
-
-    .stat span { color: var(--muted); font-size: 0.9rem; }
-
-    .quote-grid {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    blockquote {
-      margin: 0;
-    }
-
-    blockquote p {
-      color: var(--ink);
-      font-size: 1.04rem;
-      margin: 0 0 1rem;
-    }
-
-    cite {
-      color: var(--muted);
-      font-style: normal;
-      font-weight: 700;
-    }
-
-    .contact {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: 1fr 1fr;
-      padding: 1.25rem;
-    }
-
-    label {
-      color: var(--muted);
-      display: grid;
-      font-size: 0.92rem;
-      font-weight: 700;
-      gap: 0.35rem;
-    }
-
-    input,
-    textarea {
-      background: var(--surface-strong);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      color: var(--ink);
-      min-height: 44px;
-      padding: 0.7rem 0.75rem;
-      width: 100%;
-    }
-
-    textarea { min-height: 136px; resize: vertical; }
-    .full { grid-column: 1 / -1; }
-
-    .form-status {
-      color: var(--muted);
-      font-size: 0.92rem;
-      font-weight: 700;
-      margin: 0;
-      min-height: 1.5rem;
-    }
-
-    .form-status.is-success { color: #137f8f; }
-    .form-status.is-error { color: #b92564; }
-
-    .site-footer {
-      border-top: 1px solid var(--line);
-      margin-top: 2rem;
-    }
-
-    .footer-wrap {
-      align-items: center;
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: space-between;
-      margin: 0 auto;
-      max-width: var(--max);
-      padding: 1.5rem 1.25rem;
-    }
-
-    .footer-wrap a { color: var(--brand-strong); font-weight: 750; }
-    .footer-contact { color: var(--brand-strong); font-weight: 750; }
-
-    @media (max-width: 900px) {
-      .hero,
-      .split,
-      .contact {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 2rem;
-      }
-
-      .hero-media { aspect-ratio: 16 / 10; }
-      .grid, .quote-grid, .video-grid { grid-template-columns: 1fr 1fr; }
-      .media-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .menu-toggle { display: inline-flex; }
-
-      .nav-links {
-        background: var(--surface-strong);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        display: none;
-        left: 1rem;
-        padding: 0.6rem;
-        position: absolute;
-        right: 1rem;
-        top: 76px;
-      }
-
-      .nav-links.is-open { display: grid; }
-      .nav-links a { padding: 0.75rem; }
-      .section-head { align-items: start; display: grid; }
-      .grid, .quote-grid, .media-grid, .stats, .video-grid { grid-template-columns: 1fr; }
-      .photo:first-child { grid-row: auto; }
-      .hero-note { position: static; max-width: none; border-radius: 0; border-width: 1px 0 0; }
-      .hero-media { aspect-ratio: auto; }
-      .hero-media img, .hero-media video { aspect-ratio: 4 / 3; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
   <header class="site-header">
     <div class="nav-wrap">
-      <a class="brand" href="#home" aria-label="BLxKpopCrew home">
+      <a class="brand" href="index.html#home" aria-label="BLxKpopCrew home">
         <img class="brand-logo" src="photos%20and%20videos/logo.jpg" alt="" width="498" height="689" />
         <span>BLxKpopCrew</span>
       </a>
 
       <nav aria-label="Main navigation">
         <ul class="nav-links" id="nav-links">
-          <li><a href="#events">Events</a></li>
-          <li><a href="#format">Format</a></li>
-          <li><a href="#community">Community</a></li>
-          <li><a href="#vibe">Vibe</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="index.html#events">Events</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="talk-zone.html">BL Talk Zone</a></li>
+          <li><a href="announcements.html">Announcements</a></li>
+          <li><a href="merch-store.html">Merch</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
 
@@ -579,11 +51,19 @@
   <main id="main" class="page-shell">
     <section class="hero" id="home" aria-labelledby="home-title">
       <div>
+        <div class="notice" role="status" aria-label="Upcoming event updates">
+          <div class="notice-track">
+            <span class="notice-item"><span class="notice-dot" aria-hidden="true"></span><strong>Upcoming event</strong><span>Next fan meetup announcement coming soon: date, city, theme, and RSVP details.</span></span>
+            <span class="notice-item" aria-hidden="true"><span class="notice-dot"></span><strong>Upcoming event</strong><span>Next fan meetup announcement coming soon: date, city, theme, and RSVP details.</span></span>
+            <span class="notice-item" aria-hidden="true"><span class="notice-dot"></span><strong>Upcoming event</strong><span>Next fan meetup announcement coming soon: date, city, theme, and RSVP details.</span></span>
+          </div>
+        </div>
+        <p class="eyebrow">India-based fan community</p>
         <h1 id="home-title">Where fandom meets culture, creativity, and community.</h1>
-        <p class="hero-copy">BLxKpopCrew is a vibrant fan community uniting the worlds of BL, K-pop, and Asian pop culture through events, content, and unforgettable experiences. We create spaces where fans connect, celebrate their passions, and stay updated on the latest trends, music, and entertainment.</p>
+        <p class="hero-copy">BLxKpopCrew brings BL, K-pop, and Asian pop culture fans together through watch parties, crossover nights, pop-ups, reviews, photo archives, and warm offline moments across India.</p>
         <div class="button-row">
-          <a class="btn" href="#events">Explore the experience</a>
-          <a class="btn secondary" href="#contact">Ask to join</a>
+          <a class="btn" href="#events">Explore events</a>
+          <a class="btn secondary" href="#contact">Contact us</a>
         </div>
       </div>
 
@@ -591,9 +71,51 @@
         <img src="photos%20and%20videos/1000172856.jpg" alt="BLxKpopCrew members showing matching friendship bracelets around a fandom table" width="1200" height="1600" fetchpriority="high" />
         <figcaption class="hero-note">
           <strong>BLxKpopCrew energy</strong>
-          <span>Pop-ups, collaborations, curated watchlists, themed keepsakes, and fan-first hangouts.</span>
+          <span>Fan-first hangouts, watchlists, themed keepsakes, pop-ups, and collaborations.</span>
         </figcaption>
       </figure>
+    </section>
+
+    <section class="section-block" id="sections" aria-labelledby="sections-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Explore</p>
+          <h2 id="sections-title">Start with what you came for.</h2>
+        </div>
+        <p>Browse event memories, read BL reviews, track announcements, or reach the crew for community and collaboration requests.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="archive.html">
+          <span class="tag">Photo gallery</span>
+          <h3>BLxKpop Archive</h3>
+          <p>Photos and videos from crew events, fan tables, themed keepsakes, and shared fandom moments.</p>
+        </a>
+        <a class="card" href="talk-zone.html">
+          <span class="tag">Reviews</span>
+          <h3>BL Talk Zone</h3>
+          <p>Regional review lanes for Thai, Japanese, Korean, Chinese, Taiwanese, and Western BL.</p>
+        </a>
+        <a class="card" href="announcements.html">
+          <span class="tag">Notifications</span>
+          <h3>Announcements</h3>
+          <p>Event labels, RSVP windows, city updates, and important community notices.</p>
+        </a>
+        <a class="card" href="merch-store.html">
+          <span class="tag">Merch</span>
+          <h3>Merch Store</h3>
+          <p>Official merch drops, event keepsakes, and fan table updates.</p>
+        </a>
+        <a class="card" href="#contact">
+          <span class="tag">Community</span>
+          <h3>Join or collaborate</h3>
+          <p>Send event ideas, collab proposals, WhatsApp queries, or city requests directly to the crew.</p>
+        </a>
+        <a class="card" href="https://www.instagram.com/blxkpopcrew/" target="_blank" rel="noopener">
+          <span class="tag">Instagram</span>
+          <h3>Follow the crew</h3>
+          <p>Event posts, pinned updates, reels, and community drops are shared on Instagram.</p>
+        </a>
+      </div>
     </section>
 
     <section class="section-block" id="events" aria-labelledby="events-title">
@@ -602,51 +124,81 @@
           <p class="eyebrow">Events</p>
           <h2 id="events-title">Experiences built for fans.</h2>
         </div>
-        <p>From pop-ups to collaborations, each gathering blends entertainment, creativity, community, and the latest conversations across BL, K-pop, and Asian pop culture.</p>
+        <p>Watch parties, crossover nights, and collaborations are organized so visitors can move from event type to recap in one click.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="watch-parties.html">
+          <span class="tag">Month-wise list</span>
+          <h3>BL Watch Parties</h3>
+          <p>Curated screenings organized month by month, with recap links for highlights, photos, and fan reactions.</p>
+        </a>
+        <a class="card" href="kpop-crossover-nights.html">
+          <span class="tag">Month-wise list</span>
+          <h3>K-pop Crossover Nights</h3>
+          <p>Playlist nights, comebacks, fan games, themed swaps, and recap links grouped by month.</p>
+        </a>
+        <a class="card" href="popups-partnerships.html">
+          <span class="tag">Collabs</span>
+          <h3>Pop-ups and Partnerships</h3>
+          <p>Partner-led fan experiences listed by collaborator, event name, venue note, and recap.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-block" id="why" aria-labelledby="why-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Why we do this</p>
+          <h2 id="why-title">Because fandom feels better when it feels shared.</h2>
+        </div>
+        <p>We create offline and online spaces where fans can discover stories, celebrate music, make friends, and feel at home in Asian pop culture fandom.</p>
       </div>
       <div class="grid">
         <article class="card">
-          <span class="tag">Screening</span>
-          <h3>BL Watch Parties</h3>
-          <p>Curated episodes or films with subtitles, fan reactions, and spoiler-safe discussion after the screening.</p>
+          <span class="tag">Connect</span>
+          <h3>Find people who get it</h3>
+          <p>From one favorite series to a full watchlist, fans deserve a place where their excitement lands easily.</p>
         </article>
         <article class="card">
-          <span class="tag">Pop culture</span>
-          <h3>K-pop Crossover Nights</h3>
-          <p>A lively space for playlists, recommendations, merch swaps, themed tickets, and low-pressure conversation.</p>
+          <span class="tag">Celebrate</span>
+          <h3>Turn releases into memories</h3>
+          <p>Watch parties, comeback nights, birthdays, finales, and pop-ups become shared moments instead of solo scrolling.</p>
         </article>
         <article class="card">
-          <span class="tag">Collabs</span>
-          <h3>Pop-ups and Partnerships</h3>
-          <p>Creative fan-led moments with cafes, creators, fandom tables, keepsakes, and culture-first experiences.</p>
+          <span class="tag">Create</span>
+          <h3>Build fan-led culture</h3>
+          <p>Reviews, recaps, photos, reels, merch tables, and partner events keep the community active between meetups.</p>
         </article>
       </div>
     </section>
 
-    <section class="section-block" aria-labelledby="locations-title">
+    <section class="section-block" id="community" aria-labelledby="community-title">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Culture drops</p>
-          <h2 id="locations-title">Online updates meet offline moments.</h2>
+          <p class="eyebrow">Community</p>
+          <h2 id="community-title">A comfortable zone created for fans.</h2>
         </div>
-        <p>The crew keeps fans close to what is moving across music, series, creators, events, and Asian entertainment culture.</p>
+        <p>A fandom space works when people feel respected, relaxed, and free to enjoy what they love.</p>
       </div>
       <div class="grid">
         <article class="card">
-          <span class="tag">Trends</span>
-          <h3>Fresh fan updates</h3>
-          <p>Stay tuned to new releases, comebacks, watchlists, event ideas, and conversations fans are already having.</p>
+          <span class="tag">Privacy</span>
+          <h3>Comfort-first space</h3>
+          <p>We keep the space relaxed, thoughtful, and mindful of personal boundaries so fans can participate at their own pace.</p>
         </article>
         <article class="card">
-          <span class="tag">Meetups</span>
-          <h3>Pop-ups and hangouts</h3>
-          <p>Community plans can move from cafe tables to screening rooms, creator corners, and fandom celebration nights.</p>
+          <span class="tag">Respect</span>
+          <h3>Judgement-free fandom</h3>
+          <p>All fans are welcome. We ask members to respect boundaries, ships, comfort levels, and lived experiences.</p>
         </article>
         <article class="card">
-          <span class="tag">Content</span>
-          <h3>Fan-made stories</h3>
-          <p>Reels, recaps, themed posts, and event highlights help the community keep the energy going between gatherings.</p>
+          <span class="tag">Fandom</span>
+          <h3>Recommendations welcome</h3>
+          <p>Bring your watchlist, fanart, playlists, lightsticks, photocards, theories, or trend alerts. Enthusiasm is the point.</p>
         </article>
+      </div>
+      <div class="button-row" style="margin-top: 1rem;">
+        <a class="btn secondary" href="#contact">Go to Contact Us</a>
       </div>
     </section>
 
@@ -656,6 +208,7 @@
           <p class="eyebrow">Photos</p>
           <h2 id="gallery-title">Real moments from the crew.</h2>
         </div>
+        <p>A preview of the archive, with the full collection available on the gallery page.</p>
       </div>
       <div class="media-grid">
         <figure class="photo"><img loading="lazy" src="photos%20and%20videos/1000172856.jpg" alt="Members showing matching bracelets around a BL and K-pop meetup table" width="1200" height="1600" /></figure>
@@ -666,108 +219,13 @@
       </div>
     </section>
 
-    <section class="section-block" aria-labelledby="video-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Videos</p>
-          <h2 id="video-title">A little movement from the crew.</h2>
-        </div>
-        <p>Short clips keep the page feeling close to the actual experience, with controls available for visitors who want to play them.</p>
-      </div>
-      <div class="video-grid">
-        <figure class="video-card">
-          <video controls preload="metadata" poster="photos%20and%20videos/1000172856.jpg">
-            <source src="photos%20and%20videos/1000172851.mp4" type="video/mp4" />
-          </video>
-          <figcaption>Meetup details, decor, and table moments from the BLxKpopCrew night.</figcaption>
-        </figure>
-        <figure class="video-card">
-          <video controls preload="metadata" poster="photos%20and%20videos/1000172854.jpg">
-            <source src="photos%20and%20videos/1000172852.mp4" type="video/mp4" />
-          </video>
-          <figcaption>Themed tickets and fan touches that make each gathering feel personal.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section-block split" id="format" aria-labelledby="format-title">
-      <div>
-        <p class="eyebrow">Format</p>
-        <h2 id="format-title">Built for fans, creators, and first-timers.</h2>
-        <p class="hero-copy">You do not need to know everyone already. Each experience has a host, a simple plan, and a clear opt-in approach to photos, introductions, content, and discussion.</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <span class="tag">Before</span>
-          <h3>RSVP and event notes</h3>
-          <p>Event posts include venue area, timing, themes, watchlist details, age rating, and any content notes to be aware of.</p>
-        </article>
-        <article class="card">
-          <span class="tag">During</span>
-          <h3>Host-led, fan-friendly flow</h3>
-          <p>We keep introductions optional, separate spoiler zones from general chat, and make space for quiet participation.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section-block" id="community" aria-labelledby="community-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Community</p>
-          <h2 id="community-title">What the crew makes room for.</h2>
-        </div>
-        <p>A fandom space works when people feel respected, excited, and free to celebrate what they love.</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <span class="tag">Respect</span>
-          <h3>Queer-friendly and judgement-free</h3>
-          <p>All fans are welcome. We ask members to respect pronouns, boundaries, ships, comfort levels, and lived experiences.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Privacy</span>
-          <h3>Photos only with consent</h3>
-          <p>Group photos are opt-in. No face tags, reposts, or public stories without permission from the people shown.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Fandom</span>
-          <h3>Recommendations welcome</h3>
-          <p>Bring your watchlist, fanart, playlists, lightsticks, photocards, zines, theories, or trend alerts. Enthusiasm is the point.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section-block split" id="vibe" aria-labelledby="vibe-title">
-      <div class="panel">
-        <p class="eyebrow">Vibe</p>
-        <h2 id="vibe-title">For fans who want culture to feel shared.</h2>
-        <div class="stats" aria-label="BLxKpopCrew community values">
-          <div class="stat"><strong>Open</strong><span>to new fans</span></div>
-          <div class="stat"><strong>Current</strong><span>with trends</span></div>
-          <div class="stat"><strong>Creative</strong><span>with events</span></div>
-        </div>
-      </div>
-      <div class="quote-grid">
-        <article class="card">
-          <span class="tag">For first-timers</span>
-          <h3>No fandom exam at the door</h3>
-          <p>Come with one favorite show, one favorite group, or a hundred references. We keep recommendations friendly and explain context without gatekeeping.</p>
-        </article>
-        <article class="card">
-          <span class="tag">For regulars</span>
-          <h3>Room to build traditions</h3>
-          <p>Theme nights, birthday screenings, comeback celebrations, ship debates, merch tables, and post-finale decompression are all welcome.</p>
-        </article>
-      </div>
-    </section>
-
     <section class="section-block" id="contact" aria-labelledby="contact-title">
       <div class="section-head">
         <div>
           <p class="eyebrow">Contact</p>
           <h2 id="contact-title">Join the next BLxKpopCrew moment.</h2>
         </div>
-        <p>Tell us your area, favorite BL title or K-pop act, and what kind of event or collaboration you want to see.</p>
+        <p>Location: India. For WhatsApp queries, send your message here or email the crew directly.</p>
       </div>
       <form class="contact" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <label>Name
@@ -777,7 +235,7 @@
           <input name="email" type="email" autocomplete="email" required />
         </label>
         <label class="full">Message
-          <textarea name="message" required></textarea>
+          <textarea name="message" placeholder="Share your WhatsApp query, event idea, city, collaboration note, or fan request." required></textarea>
         </label>
         <input type="hidden" name="_subject" value="New BLxKpopCrew inquiry" />
         <button class="btn full" type="submit">Send inquiry</button>
@@ -789,101 +247,10 @@
   <footer class="site-footer">
     <div class="footer-wrap">
       <span>&copy; 2026 BLxKpopCrew. Fan-led, culture-first, community-made.</span>
-      <span class="footer-contact">blxkpopcrew@example.com</span>
+      <span class="footer-contact">India | <a href="mailto:blxkpopcrew.in@gmail.com">blxkpopcrew.in@gmail.com</a></span>
     </div>
   </footer>
 
-  <script>
-    const root = document.documentElement;
-    const nav = document.getElementById("nav-links");
-    const menuToggle = document.getElementById("menu-toggle");
-    const themeToggle = document.getElementById("theme-toggle");
-    const storedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
-      root.setAttribute("data-theme", "dark");
-    }
-
-    themeToggle.addEventListener("click", () => {
-      const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      if (nextTheme === "dark") {
-        root.setAttribute("data-theme", "dark");
-      } else {
-        root.removeAttribute("data-theme");
-      }
-      localStorage.setItem("theme", nextTheme);
-    });
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("is-open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-    });
-
-    nav.addEventListener("click", (event) => {
-      if (event.target.closest("a")) {
-        nav.classList.remove("is-open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open menu");
-      }
-    });
-
-    const sections = [...document.querySelectorAll("main section[id]")];
-    const navLinks = [...document.querySelectorAll(".nav-links a")];
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach((link) => {
-          if (link.hash === "#" + entry.target.id) {
-            link.setAttribute("aria-current", "page");
-          } else {
-            link.removeAttribute("aria-current");
-          }
-        });
-      });
-    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
-
-    sections.forEach((section) => observer.observe(section));
-
-    document.getElementById("contact-form").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const form = event.currentTarget;
-      const status = document.getElementById("form-status");
-      const submitButton = form.querySelector("button[type='submit']");
-
-      status.className = "form-status full";
-
-      if (form.action.includes("YOUR_FORM_ID")) {
-        status.textContent = "Connect a Formspree form ID before publishing this form.";
-        status.classList.add("is-error");
-        return;
-      }
-
-      submitButton.disabled = true;
-      submitButton.textContent = "Sending...";
-      status.textContent = "Sending your inquiry...";
-
-      try {
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" }
-        });
-
-        if (!response.ok) throw new Error("Form submission failed");
-
-        form.reset();
-        status.textContent = "Thanks. Your inquiry has been sent.";
-        status.classList.add("is-success");
-      } catch (error) {
-        status.textContent = "Something went wrong. Please try again in a moment.";
-        status.classList.add("is-error");
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = "Send inquiry";
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
