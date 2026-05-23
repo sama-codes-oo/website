@@ -16,7 +16,7 @@
 //    https://docs.google.com/spreadsheets/d/THIS_IS_THE_ID/edit
 //    Paste it below.
 
-const SHEET_ID = '16tzZWxXKgyJJeYHNCYzlXWhQMGtZLk8wx6t8luShzHE';
+const SHEET_ID = '';
 
 // ─── SAMPLE DATA (shown when SHEET_ID is empty or fetch fails) ───────────────
 const SAMPLE_EVENTS = [
