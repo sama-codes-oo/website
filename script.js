@@ -64,6 +64,82 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach((section) => observer.observe(section));
 
+// Scroll entrance animations
+const animateEls = document.querySelectorAll('[data-animate]');
+if (animateEls.length) {
+  const animObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      animObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -36px 0px' });
+  animateEls.forEach(el => animObs.observe(el));
+}
+
+// Filter / tab switching
+document.querySelectorAll('.filter-tabs').forEach(tabGroup => {
+  tabGroup.addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    const target = tab.dataset.tab;
+    const root = tabGroup.closest('[data-tab-root]') || document;
+    tabGroup.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('is-active'));
+    tab.classList.add('is-active');
+    root.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.toggle('is-active', p.dataset.panel === target);
+    });
+  });
+});
+
+// Lightbox
+(function () {
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+  const img = lb.querySelector('.lightbox__img');
+  const closeBtn = lb.querySelector('.lightbox__close');
+
+  document.querySelectorAll('[data-lightbox]').forEach(el => {
+    el.addEventListener('click', () => {
+      img.src = el.dataset.lightbox;
+      lb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLb() {
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn?.addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+}());
+
+// Footer notify form
+document.getElementById('footer-notify-form')?.addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const status = document.getElementById('footer-notify-status');
+  if (!status) return;
+  status.className = 'form-status';
+  if (form.action.includes('YOUR_FORM_ID')) {
+    status.textContent = 'Add your Formspree ID to enable notifications.';
+    return;
+  }
+  try {
+    const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+    if (!res.ok) throw new Error();
+    form.reset();
+    status.textContent = "You're on the list.";
+    status.classList.add('is-success');
+  } catch {
+    status.textContent = 'Something went wrong. Email us directly.';
+    status.classList.add('is-error');
+  }
+});
+
 document.getElementById("contact-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
