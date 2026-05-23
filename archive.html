@@ -10,36 +10,70 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header">
     <div class="nav-wrap">
-      <a class="brand" href="index.html#home"><img class="brand-logo" src="photos%20and%20videos/logo.jpg" alt="" width="498" height="689" /><span>BLxKpopCrew</span></a>
-      <nav aria-label="Main navigation"><ul class="nav-links" id="nav-links"><li><a href="index.html#events">Events</a></li><li><a href="archive.html" aria-current="page">Archive</a></li><li><a href="talk-zone.html">BL Talk Zone</a></li><li><a href="announcements.html">Announcements</a></li><li><a href="merch-store.html">Merch</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav>
-      <div class="nav-actions"><button class="icon-btn" type="button" id="theme-toggle" aria-label="Switch to dark mode"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.99 12.62A8.5 8.5 0 1 1 11.38 3.01 6.5 6.5 0 0 0 20.99 12.62Z"></path></svg></button><button class="icon-btn menu-toggle" type="button" id="menu-toggle" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false"><svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button></div>
+      <a class="brand" href="index.html" aria-label="BLxKpopCrew home"><img class="brand-logo" src="photos%20and%20videos/logo.jpg" alt="" width="498" height="689" /><span>BLxKpopCrew</span></a>
+      <nav aria-label="Main navigation"><ul class="nav-links" id="nav-links"><li><a href="events.html">Events</a></li><li><a href="talk-zone.html">BL Talk Zone</a></li><li><a href="archive.html" aria-current="page">Archive</a></li><li><a href="merch-store.html">Merch</a></li></ul></nav>
+      <div class="nav-actions">
+        <a href="watch-parties.html" class="nav-cta btn">RSVP →</a>
+        <button class="icon-btn" type="button" id="theme-toggle" aria-label="Switch to dark mode"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.99 12.62A8.5 8.5 0 1 1 11.38 3.01 6.5 6.5 0 0 0 20.99 12.62Z"></path></svg></button>
+        <button class="icon-btn menu-toggle" type="button" id="menu-toggle" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false"><svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+      </div>
     </div>
   </header>
   <main id="main" class="page-shell">
-    <section class="page-hero" aria-labelledby="archive-title">
+    <section class="page-hero page-hero--archive" aria-labelledby="archive-title">
       <p class="eyebrow">Photo gallery</p>
       <h1 id="archive-title">BLxKpop Archive</h1>
-      <p class="hero-copy">All photos and videos uploaded to the site are collected here so fans can browse the crew's moments in one place.</p>
+      <p class="hero-copy">Photos and videos from crew events, fan tables, themed keepsakes, and shared fandom moments.</p>
     </section>
-    <section class="section-block" aria-labelledby="photos-title">
-      <div class="section-head"><div><p class="eyebrow">Photos</p><h2 id="photos-title">Uploaded photos</h2></div></div>
-      <div class="media-grid">
-        <figure class="photo"><img loading="lazy" src="photos%20and%20videos/1000172856.jpg" alt="Members showing matching bracelets around a meetup table" width="1200" height="1600" /></figure>
-        <figure class="photo"><img loading="lazy" src="photos%20and%20videos/1000172855.jpg" alt="Smiling BLxKpopCrew members at a fandom meetup" width="900" height="1600" /></figure>
-        <figure class="photo"><img loading="lazy" src="photos%20and%20videos/1000172854.jpg" alt="Purple BL x K-pop Crew admit one event ticket" width="1600" height="1200" /></figure>
-        <figure class="photo"><img loading="lazy" src="photos%20and%20videos/1000172849.jpg" alt="Printed BL x K-pop Crew keepsake cards on a wooden table" width="900" height="1600" /></figure>
-        <figure class="photo logo-photo"><img loading="lazy" src="photos%20and%20videos/logo.jpg" alt="BLxKpopCrew microphone logo" width="498" height="689" /></figure>
+    <section class="section-block" data-tab-root>
+      <div class="filter-tabs">
+        <button class="filter-tab is-active" data-tab="all">All</button>
+        <button class="filter-tab" data-tab="photos">Photos</button>
+        <button class="filter-tab" data-tab="videos">Videos</button>
       </div>
-    </section>
-    <section class="section-block" aria-labelledby="videos-title">
-      <div class="section-head"><div><p class="eyebrow">Videos</p><h2 id="videos-title">Uploaded videos</h2></div></div>
-      <div class="video-grid">
-        <figure class="video-card"><video controls preload="metadata" poster="photos%20and%20videos/1000172856.jpg"><source src="photos%20and%20videos/1000172851.mp4" type="video/mp4" /></video><figcaption>Meetup details, decor, and table moments.</figcaption></figure>
-        <figure class="video-card"><video controls preload="metadata" poster="photos%20and%20videos/1000172854.jpg"><source src="photos%20and%20videos/1000172852.mp4" type="video/mp4" /></video><figcaption>Themed tickets and fan touches from the event.</figcaption></figure>
+      <div class="tab-panel is-active" data-panel="all">
+        <div class="archive-photo-grid">
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172856.jpg"><img loading="lazy" src="photos%20and%20videos/1000172856.jpg" alt="Members showing matching bracelets at a meetup" width="1200" height="1600" /></figure>
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172855.jpg"><img loading="lazy" src="photos%20and%20videos/1000172855.jpg" alt="Smiling BLxKpopCrew members at a fandom meetup" width="900" height="1600" /></figure>
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172854.jpg"><img loading="lazy" src="photos%20and%20videos/1000172854.jpg" alt="Purple BL x K-pop Crew admit one event ticket" width="1600" height="1200" /></figure>
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172849.jpg"><img loading="lazy" src="photos%20and%20videos/1000172849.jpg" alt="Printed BL x K-pop Crew keepsake cards on a wooden table" width="900" height="1600" /></figure>
+          <figure class="photo logo-photo photo--clickable" data-lightbox="photos%20and%20videos/logo.jpg"><img loading="lazy" src="photos%20and%20videos/logo.jpg" alt="BLxKpopCrew microphone logo" width="498" height="689" /></figure>
+        </div>
+        <div class="video-grid">
+          <figure class="video-card"><video controls preload="metadata" poster="photos%20and%20videos/1000172856.jpg"><source src="photos%20and%20videos/1000172851.mp4" type="video/mp4" /></video><figcaption>Meetup details, decor, and table moments.</figcaption></figure>
+          <figure class="video-card"><video controls preload="metadata" poster="photos%20and%20videos/1000172854.jpg"><source src="photos%20and%20videos/1000172852.mp4" type="video/mp4" /></video><figcaption>Themed tickets and fan touches from the event.</figcaption></figure>
+        </div>
+      </div>
+      <div class="tab-panel" data-panel="photos">
+        <div class="archive-photo-grid">
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172856.jpg"><img loading="lazy" src="photos%20and%20videos/1000172856.jpg" alt="Members showing matching bracelets at a meetup" width="1200" height="1600" /></figure>
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172855.jpg"><img loading="lazy" src="photos%20and%20videos/1000172855.jpg" alt="Smiling BLxKpopCrew members at a fandom meetup" width="900" height="1600" /></figure>
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172854.jpg"><img loading="lazy" src="photos%20and%20videos/1000172854.jpg" alt="Purple BL x K-pop Crew admit one event ticket" width="1600" height="1200" /></figure>
+          <figure class="photo photo--clickable" data-lightbox="photos%20and%20videos/1000172849.jpg"><img loading="lazy" src="photos%20and%20videos/1000172849.jpg" alt="Printed BL x K-pop Crew keepsake cards on a wooden table" width="900" height="1600" /></figure>
+          <figure class="photo logo-photo photo--clickable" data-lightbox="photos%20and%20videos/logo.jpg"><img loading="lazy" src="photos%20and%20videos/logo.jpg" alt="BLxKpopCrew microphone logo" width="498" height="689" /></figure>
+        </div>
+      </div>
+      <div class="tab-panel" data-panel="videos">
+        <div class="video-grid">
+          <figure class="video-card"><video controls preload="metadata" poster="photos%20and%20videos/1000172856.jpg"><source src="photos%20and%20videos/1000172851.mp4" type="video/mp4" /></video><figcaption>Meetup details, decor, and table moments.</figcaption></figure>
+          <figure class="video-card"><video controls preload="metadata" poster="photos%20and%20videos/1000172854.jpg"><source src="photos%20and%20videos/1000172852.mp4" type="video/mp4" /></video><figcaption>Themed tickets and fan touches from the event.</figcaption></figure>
+        </div>
       </div>
     </section>
   </main>
-  <footer class="site-footer"><div class="footer-wrap"><span>&copy; 2026 BLxKpopCrew.</span><span class="footer-contact"><a href="mailto:blxkpopcrew.in@gmail.com">blxkpopcrew.in@gmail.com</a></span></div></footer>
+  <footer class="site-footer footer-full">
+    <div class="footer-grid page-shell">
+      <div><a class="brand footer-brand-link" href="index.html"><img class="brand-logo" src="photos%20and%20videos/logo.jpg" alt="" width="498" height="689" /><span>BLxKpopCrew</span></a><p class="footer-tagline">Small moments, real connection. India's BL &amp; K-pop fan community.</p><a class="footer-ig" href="https://www.instagram.com/blxkpop.crew/" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C5.83 0 5.56.01 4.71.05 3.86.09 3.28.22 2.77.42a3.6 3.6 0 0 0-1.3.85 3.6 3.6 0 0 0-.85 1.3c-.2.51-.33 1.09-.37 1.94C.01 5.56 0 5.83 0 8s.01 2.44.05 3.29c.04.85.17 1.43.37 1.94.21.53.49.98.85 1.3.36.36.77.64 1.3.85.51.2 1.09.33 1.94.37.85.04 1.12.05 3.29.05s2.44-.01 3.29-.05c.85-.04 1.43-.17 1.94-.37.53-.21.98-.49 1.3-.85.36-.36.64-.77.85-1.3.2-.51.33-1.09.37-1.94.04-.85.05-1.12.05-3.29s-.01-2.44-.05-3.29c-.04-.85-.17-1.43-.37-1.94a3.6 3.6 0 0 0-.85-1.3 3.6 3.6 0 0 0-1.3-.85c-.51-.2-1.09-.33-1.94-.37C10.44.01 10.17 0 8 0Zm0 1.44c2.13 0 2.38.01 3.22.05.78.04 1.2.17 1.48.28.37.14.63.31.91.59.28.28.45.54.59.91.11.28.24.7.28 1.48.04.84.05 1.09.05 3.22s-.01 2.38-.05 3.22c-.04.78-.17 1.2-.28 1.48-.14.37-.31.63-.59.91-.28.28-.54.45-.91.59-.28.11-.7.24-1.48.28-.84.04-1.09.05-3.22.05s-2.38-.01-3.22-.05c-.78-.04-1.2-.17-1.48-.28a2.15 2.15 0 0 1-.91-.59 2.15 2.15 0 0 1-.59-.91c-.11-.28-.24-.7-.28-1.48-.04-.84-.05-1.09-.05-3.22s.01-2.38.05-3.22c.04-.78.17-1.2.28-1.48.14-.37.31-.63.59-.91.28-.28.54-.45.91-.59.28-.11.7-.24 1.48-.28.84-.04 1.09-.05 3.22-.05Z"/><path d="M8 3.89A4.11 4.11 0 1 0 8 12.1 4.11 4.11 0 0 0 8 3.89Zm0 6.78A2.67 2.67 0 1 1 8 5.33a2.67 2.67 0 0 1 0 5.34Zm5.23-6.94a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0Z"/></svg> @blxkpop.crew</a></div>
+      <div><h4 class="footer-col-head">Explore</h4><ul class="footer-links-col"><li><a href="index.html">Home</a></li><li><a href="talk-zone.html">BL Talk Zone</a></li><li><a href="archive.html">Archive</a></li><li><a href="merch-store.html">Merch</a></li></ul></div>
+      <div><h4 class="footer-col-head">Events</h4><ul class="footer-links-col"><li><a href="watch-parties.html">Watch Parties</a></li><li><a href="kpop-crossover-nights.html">K-pop Nights</a></li><li><a href="popups-partnerships.html">Pop-ups</a></li></ul></div>
+      <div><h4 class="footer-col-head">Get notified</h4><p class="footer-notify-desc">Event drops, RSVP windows, and crew updates.</p><form class="notify-form" id="footer-notify-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"><div class="notify-row"><input type="email" name="email" placeholder="your@email.com" aria-label="Email for event notifications" required /><button class="btn" type="submit">Notify me</button></div><p class="form-status" id="footer-notify-status" role="status" aria-live="polite"></p></form></div>
+    </div>
+    <div class="footer-bottom"><div class="footer-bottom-inner page-shell"><span>© 2026 BLxKpopCrew. Fan-led, culture-first, community-made.</span><a href="mailto:blxkpopcrew.in@gmail.com">blxkpopcrew.in@gmail.com</a></div></div>
+  </footer>
+  <div id="lightbox" class="lightbox" role="dialog" aria-label="Photo viewer" aria-modal="true">
+    <button class="lightbox__close" aria-label="Close photo viewer">✕</button>
+    <img class="lightbox__img" src="" alt="" />
+  </div>
   <script src="script.js?v=theme-icons"></script>
 </body>
 </html>
