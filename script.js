@@ -64,6 +64,153 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach((section) => observer.observe(section));
 
+// ── Search overlay ────────────────────────────────────────
+const searchOverlay = document.getElementById("search-overlay");
+const searchToggle = document.getElementById("search-toggle");
+const searchClose = document.getElementById("search-close");
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+
+const SEARCH_INDEX = [
+  { label: "Events", title: "BL Watch Parties", desc: "Curated BL screenings grouped by month.", href: "watch-parties.html" },
+  { label: "Events", title: "BL Watch Party — May 2026", desc: "Fan meetup recap with photos from May 2026.", href: "event-watch-party-may-2026.html" },
+  { label: "Events", title: "K-pop Crossover Nights", desc: "Playlist nights, comeback celebrations, and fan game sessions.", href: "kpop-crossover-nights.html" },
+  { label: "Events", title: "Pop-ups & Partnerships", desc: "Partner-led fan experiences with cafes, creators, and fan tables.", href: "popups-partnerships.html" },
+  { label: "BL Talk Zone", title: "Thai BL Reviews", desc: "Drama recaps, ratings, and episode guides for Thai BL.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Japanese BL Reviews", desc: "Films, live-action dramas, anime, and manga adaptations.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Korean BL Reviews", desc: "Short series, web dramas, and idol-led stories.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Bad Buddy", desc: "Thai BL. Rating: 9.0. Rivalry, friendship, and first love.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "A Tale of Thousand Stars", desc: "Thai BL. Rating: 8.7. Slow-burn romance and character healing.", href: "talk-zone.html" },
+  { label: "Archive", title: "Photo Archive", desc: "Photos and videos from BLxKpopCrew events.", href: "archive.html" },
+  { label: "Merch", title: "Merch Store", desc: "Official merch drops, event keepsakes, and fan table updates.", href: "merch-store.html" },
+  { label: "Announcements", title: "Announcements", desc: "Event alerts, RSVP windows, and community updates.", href: "announcements.html" },
+  { label: "Contact", title: "Contact Us", desc: "Reach BLxKpopCrew for events, collabs, or fan inquiries.", href: "index.html#contact" },
+  { label: "RSVP", title: "RSVP for Events", desc: "Register your interest for upcoming BL watch parties and K-pop nights.", href: "watch-parties.html" },
+];
+
+function openSearch() {
+  if (!searchOverlay) return;
+  searchOverlay.hidden = false;
+  searchInput?.focus();
+  document.body.style.overflow = "hidden";
+}
+
+function closeSearch() {
+  if (!searchOverlay) return;
+  searchOverlay.hidden = true;
+  document.body.style.overflow = "";
+  if (searchInput) searchInput.value = "";
+  if (searchResults) searchResults.innerHTML = "";
+}
+
+function renderSearchResults(query) {
+  if (!searchResults) return;
+  const q = query.trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ""; return; }
+  const hits = SEARCH_INDEX.filter(item =>
+    item.title.toLowerCase().includes(q) ||
+    item.desc.toLowerCase().includes(q) ||
+    item.label.toLowerCase().includes(q)
+  );
+  if (!hits.length) {
+    searchResults.innerHTML = '<p class="search-empty">No results found. Try a different keyword.</p>';
+    return;
+  }
+  searchResults.innerHTML = hits.map(item => `
+    <a class="search-result" href="${item.href}" role="listitem">
+      <span class="search-result__label">${item.label}</span>
+      <span class="search-result__title">${item.title}</span>
+      <span class="search-result__desc">${item.desc}</span>
+    </a>
+  `).join("");
+}
+
+searchToggle?.addEventListener("click", openSearch);
+searchClose?.addEventListener("click", closeSearch);
+searchInput?.addEventListener("input", (e) => renderSearchResults(e.target.value));
+searchOverlay?.addEventListener("click", (e) => { if (e.target === searchOverlay) closeSearch(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && searchOverlay && !searchOverlay.hidden) closeSearch();
+});
+
+// ── Footer notify form ────────────────────────────────────
+document.getElementById("footer-notify-form")?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const status = document.getElementById("footer-notify-status");
+  const btn = form.querySelector("button[type='submit']");
+  if (!status) return;
+  if (form.action.includes("YOUR_FORM_ID")) {
+    status.textContent = "Thanks! We'll notify you about upcoming events.";
+    status.className = "form-status is-success";
+    form.reset();
+    return;
+  }
+  btn.disabled = true;
+  try {
+    const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+    if (!res.ok) throw new Error();
+    status.textContent = "Thanks! We'll notify you about upcoming events.";
+    status.className = "form-status is-success";
+    form.reset();
+  } catch {
+    status.textContent = "Something went wrong. Email us at blxkpopcrew.in@gmail.com.";
+    status.className = "form-status is-error";
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// ── Tab switcher (talk-zone) ──────────────────────────────
+document.querySelectorAll("[data-tab-root]").forEach(root => {
+  const tabs = root.querySelectorAll(".filter-tab");
+  const panels = root.querySelectorAll(".tab-panel");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => { t.classList.remove("is-active"); t.setAttribute("aria-selected", "false"); });
+      panels.forEach(p => p.classList.remove("is-active"));
+      tab.classList.add("is-active");
+      tab.setAttribute("aria-selected", "true");
+      root.querySelector(`[data-panel="${tab.dataset.tab}"]`)?.classList.add("is-active");
+      runZoneSearch();
+    });
+  });
+});
+
+// ── Talk-zone search + sort ───────────────────────────────
+function runZoneSearch() {
+  const input = document.getElementById("zone-search-input");
+  if (!input) return;
+  const q = input.value.trim().toLowerCase();
+  document.querySelector(".tab-panel.is-active")?.querySelectorAll(".review-card").forEach(card => {
+    card.hidden = q ? !card.textContent.toLowerCase().includes(q) : false;
+  });
+}
+
+document.getElementById("zone-search-input")?.addEventListener("input", runZoneSearch);
+
+document.querySelectorAll(".sort-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    const mode = btn.dataset.sort;
+    const list = document.querySelector(".tab-panel.is-active .review-list");
+    if (!list) return;
+    const cards = [...list.querySelectorAll(".review-card")];
+    cards.sort((a, b) => {
+      if (mode === "rating") {
+        return parseFloat(b.querySelector(".rating-badge")?.textContent || 0) -
+               parseFloat(a.querySelector(".rating-badge")?.textContent || 0);
+      }
+      if (mode === "title") {
+        return (a.querySelector("h3")?.textContent || "").localeCompare(b.querySelector("h3")?.textContent || "");
+      }
+      return 0;
+    });
+    cards.forEach(c => list.appendChild(c));
+  });
+});
+
 document.getElementById("contact-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -109,3 +256,19 @@ document.getElementById("contact-form")?.addEventListener("submit", async (event
     submitButton.textContent = "Send inquiry";
   }
 });
+
+// Archive media filter (All / Photos / Videos)
+const archiveFilterBtns = document.querySelectorAll('[data-archive-filter]');
+if (archiveFilterBtns.length) {
+  archiveFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      archiveFilterBtns.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      const filter = btn.dataset.archiveFilter;
+      document.querySelectorAll('[data-archive-type]').forEach(el => {
+        el.hidden = filter !== 'all' && el.dataset.archiveType !== filter;
+      });
+    });
+  });
+}
