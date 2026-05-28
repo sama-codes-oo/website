@@ -1,412 +1,187 @@
-// ─── CONFIG ──────────────────────────────────────────────────────────────────
-// HOW TO CONNECT GOOGLE SHEETS:
-// 1. Create a Google Sheet with these columns in row 1 (as headers):
-//    A: title | B: date (YYYY-MM-DD) | C: city | D: venue
-//    E: status (upcoming/past/full/cancelled) | F: image_url
-//    G: description | H: rsvp_link | I: recap_link
-//    J: rating (e.g. 9.2) | K: category | L: featured (yes or blank)
-//
-// 2. For image_url: upload photo to Google Drive, right-click → Share →
-//    "Anyone with the link" → copy the link. Paste that full URL here.
-//    The site converts it to a direct image automatically.
-//
-// 3. Share the sheet: click Share → change to "Anyone with the link can view"
-//
-// 4. Copy the Sheet ID from the URL:
-//    https://docs.google.com/spreadsheets/d/THIS_IS_THE_ID/edit
-//    Paste it below.
-
-const SHEET_ID = '';
-
-// ─── SAMPLE DATA (shown when SHEET_ID is empty or fetch fails) ───────────────
-const SAMPLE_EVENTS = [
-  {
-    title: 'Bad Buddy Watch Party',
-    date: '2026-06-07',
-    city: 'Mumbai',
-    venue: 'Café Indie, Bandra',
-    status: 'upcoming',
-    imageUrl: '',
-    description: 'Full watch-through of Bad Buddy episodes 1–5 with live commentary, themed snacks, and friendship bracelets.',
-    rsvpLink: '',
-    recapLink: '',
-    rating: '',
-    category: 'BL Watch Party',
-    featured: true
-  },
-  {
-    title: 'Only Friends Mid-Season Watch',
-    date: '2026-07-12',
-    city: 'Delhi',
-    venue: 'TBA',
-    status: 'upcoming',
-    imageUrl: '',
-    description: 'Mid-season gathering to watch and react to Only Friends together with discussion after.',
-    rsvpLink: '',
-    recapLink: '',
-    rating: '',
-    category: 'BL Watch Party',
-    featured: false
-  },
-  {
-    title: 'KinnPorsche Directors Cut',
-    date: '2026-07-25',
-    city: 'Hyderabad',
-    venue: 'TBA',
-    status: 'upcoming',
-    imageUrl: '',
-    description: "Extended director's cut screening with special fanart display and community Q&A.",
-    rsvpLink: '',
-    recapLink: '',
-    rating: '',
-    category: 'BL Watch Party',
-    featured: false
-  },
-  {
-    title: 'A Tale of Thousand Stars Finale Night',
-    date: '2026-05-18',
-    city: 'Bangalore',
-    venue: 'The Nook Café, Koramangala',
-    status: 'past',
-    imageUrl: '',
-    description: 'Finale watch with themed decorations, matching outfits, and a post-screening community discussion.',
-    rsvpLink: '',
-    recapLink: '',
-    rating: '9.1',
-    category: 'BL Watch Party',
-    featured: false
-  },
-  {
-    title: 'Cherry Magic Rewatch Night',
-    date: '2026-04-20',
-    city: 'Mumbai',
-    venue: 'Screen & Sip, Andheri',
-    status: 'past',
-    imageUrl: '',
-    description: 'Cosy rewatch of Cherry Magic with themed cocktails and original fanart displayed around the venue.',
-    rsvpLink: '',
-    recapLink: '',
-    rating: '9.4',
-    category: 'BL Watch Party',
-    featured: false
-  }
-];
-
-// ─── UTILS ───────────────────────────────────────────────────────────────────
-function parseGvizDate(val) {
-  // gviz returns dates as "Date(year,0indexed_month,day)"
-  const parts = val.slice(5, -1).split(',').map(Number);
-  const [y, m, d] = parts;
-  return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-}
-
-function formatDate(dateStr) {
-  if (!dateStr) return '';
-  const parts = dateStr.split('-').map(Number);
-  if (parts.length !== 3 || parts.some(isNaN)) return dateStr;
-  const [y, m, d] = parts;
-  return new Date(y, m - 1, d).toLocaleDateString('en-IN', {
-    day: 'numeric', month: 'long', year: 'numeric'
-  });
-}
-
-function driveUrl(raw) {
-  if (!raw) return '';
-  const match = raw.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (match) return `https://lh3.googleusercontent.com/d/${match[1]}`;
-  return raw;
-}
-
-function esc(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function statusLabel(s) {
-  return { upcoming: 'Upcoming', past: 'Past', full: 'Full', cancelled: 'Cancelled' }[s] || s;
-}
-
-// ─── FETCH (JSONP — avoids CORS block on gviz endpoint) ──────────────────────
-function gvizJsonp(sheetId) {
-  return new Promise((resolve, reject) => {
-    if (!window.google) window.google = {};
-    if (!window.google.visualization) window.google.visualization = {};
-    if (!window.google.visualization.Query) window.google.visualization.Query = {};
-    const prev = window.google.visualization.Query.setResponse;
-    const timer = setTimeout(function() { reject(new Error('Timeout')); }, 6000);
-    window.google.visualization.Query.setResponse = function(data) {
-      clearTimeout(timer);
-      window.google.visualization.Query.setResponse = prev;
-      resolve(data);
-    };
-    const s = document.createElement('script');
-    s.onerror = function() { clearTimeout(timer); reject(new Error('Script load failed')); };
-    s.src = 'https://docs.google.com/spreadsheets/d/' + sheetId + '/gviz/tq?tqx=out:json';
-    document.head.appendChild(s);
-  });
-}
-
-async function fetchEvents() {
-  if (!SHEET_ID) return SAMPLE_EVENTS;
-  try {
-    const json = await gvizJsonp(SHEET_ID);
-    if (json.status !== 'ok') throw new Error(json.status);
-    return parseSheet(json);
-  } catch (err) {
-    console.warn('Google Sheets fetch failed, showing sample data:', err.message);
-    return SAMPLE_EVENTS;
-  }
-}
-
-function parseSheet(json) {
-  return (json?.table?.rows ?? [])
-    .map(row => {
-      const c = row.c ?? [];
-      const str = i => String(c[i]?.v ?? '').trim();
-      const dateRaw = c[1]?.v ?? '';
-      const dateStr = typeof dateRaw === 'string' && dateRaw.startsWith('Date(')
-        ? parseGvizDate(dateRaw)
-        : String(dateRaw).trim();
-      return {
-        title: str(0),
-        date: dateStr,
-        city: str(2),
-        venue: str(3),
-        status: str(4).toLowerCase() || 'upcoming',
-        imageUrl: str(5),
-        description: str(6),
-        rsvpLink: str(7),
-        recapLink: str(8),
-        rating: str(9),
-        category: str(10) || 'BL Watch Party',
-        featured: str(11).toLowerCase() === 'yes'
-      };
-    })
-    .filter(e => e.title);
-}
-
-// ─── RENDER ──────────────────────────────────────────────────────────────────
-const placeholderBg = {
-  upcoming: 'linear-gradient(135deg,#171943,#2a1a4e)',
-  past: 'linear-gradient(135deg,#0b2a2e,#0b3940)',
-  full: 'linear-gradient(135deg,#2d1a0e,#3d2200)',
-  cancelled: 'linear-gradient(135deg,#1a1a1a,#2a1a1a)'
-};
-
-function renderCard(event) {
-  const img = driveUrl(event.imageUrl);
-  const dateStr = formatDate(event.date);
-  const metaStr = [dateStr, event.city].filter(Boolean).join(' · ');
-  const cardTag = (event.status === 'upcoming' && event.rsvpLink) || (event.status === 'past' && event.recapLink)
-    ? 'a'
-    : 'div';
-  const href = event.status === 'upcoming' && event.rsvpLink
-    ? event.rsvpLink
-    : event.recapLink || '';
-  const linkAttrs = cardTag === 'a'
-    ? ` href="${esc(href)}" target="_blank" rel="noopener"`
-    : '';
-  const ctaText = event.status === 'upcoming' ? 'RSVP' : event.status === 'past' && event.recapLink ? 'View recap' : '';
-  const ctaHtml = ctaText ? `<span class="wp-card-cta">${ctaText} →</span>` : '';
-  const ratingHtml = event.rating ? `<span class="wp-rating">${esc(event.rating)}</span>` : '';
-  const overlayDesc = event.description.length > 110
-    ? esc(event.description.slice(0, 110)) + '…'
-    : esc(event.description);
-
-  return `
-<${cardTag} class="wp-card"${linkAttrs} role="${cardTag === 'a' ? 'link' : 'group'}" aria-label="${esc(event.title)}">
-  <div class="wp-card-thumb" ${img ? '' : `style="background:${placeholderBg[event.status] || placeholderBg.upcoming}"`}>
-    ${img ? `<img src="${esc(img)}" alt="" loading="lazy" />` : `<p class="wp-card-ph-title">${esc(event.title)}</p>`}
-    <span class="wp-badge wp-badge--${esc(event.status)}">${statusLabel(event.status)}</span>
-    ${ratingHtml}
-    <div class="wp-card-overlay" aria-hidden="true">
-      <strong class="wp-ov-title">${esc(event.title)}</strong>
-      <p class="wp-ov-meta">${esc(metaStr)}</p>
-      ${event.description ? `<p class="wp-ov-desc">${overlayDesc}</p>` : ''}
-    </div>
-  </div>
-  <div class="wp-card-info">
-    <h3 class="wp-card-title">${esc(event.title)}</h3>
-    <p class="wp-card-meta">${esc(metaStr)}</p>
-    ${ctaHtml}
-  </div>
-</${cardTag}>`;
-}
-
-function renderRow(title, events) {
-  if (!events.length) return '';
-  const id = `wp-row-${title.replace(/\W+/g, '-').toLowerCase()}`;
-  return `
-<div class="wp-row" id="${id}">
-  <div class="wp-row-header">
-    <h2 class="wp-row-title">${esc(title)}</h2>
-    <div class="wp-row-arrows" aria-hidden="true">
-      <button class="wp-arrow" data-row="${id}" data-dir="-1" tabindex="-1">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <button class="wp-arrow" data-row="${id}" data-dir="1" tabindex="-1">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
-    </div>
-  </div>
-  <div class="wp-scroll" role="list">
-    ${events.map(e => `<div role="listitem">${renderCard(e)}</div>`).join('')}
-  </div>
-</div>`;
-}
-
-function renderHero(event) {
-  const heroEl = document.getElementById('wp-hero');
-  if (!heroEl) return;
-
-  if (!event) {
-    heroEl.innerHTML = `
-      <div class="wp-hero-content page-shell">
-        <p class="eyebrow">BL Watch Parties</p>
-        <h1>Upcoming events will appear here</h1>
-        <p class="wp-hero-desc">Check back soon for upcoming screenings and watch party details.</p>
-      </div>`;
-    return;
-  }
-
-  const img = driveUrl(event.imageUrl);
-  const dateStr = formatDate(event.date);
-  const metaStr = [dateStr, event.city, event.venue].filter(Boolean).join(' · ');
-  const rsvpBtn = event.rsvpLink
-    ? `<a href="${esc(event.rsvpLink)}" class="btn" target="_blank" rel="noopener">RSVP Now</a>`
-    : `<span class="pill">RSVP opening soon</span>`;
-
-  heroEl.classList.toggle('wp-hero--has-image', !!img);
-  heroEl.innerHTML = `
-    ${img ? `<img class="wp-hero-img" src="${esc(img)}" alt="" />` : ''}
-    <div class="wp-hero-gradient"></div>
-    <div class="wp-hero-content page-shell">
-      <p class="eyebrow wp-hero-eyebrow">Next Up · ${esc(event.category)}</p>
-      <h1 class="wp-hero-title">${esc(event.title)}</h1>
-      <p class="wp-hero-meta">${esc(metaStr)}</p>
-      ${event.description ? `<p class="wp-hero-desc">${esc(event.description)}</p>` : ''}
-      <div class="button-row">${rsvpBtn}</div>
-    </div>`;
-}
-
-function renderChips(activeFilter, cities) {
-  const el = document.getElementById('wp-chips');
-  if (!el) return;
-  const filters = [
-    { value: 'all', label: 'All' },
-    { value: 'upcoming', label: 'Upcoming' },
-    { value: 'past', label: 'Past' },
-    ...cities.map(c => ({ value: `city:${c}`, label: c }))
+(function () {
+  const EVENTS = [
+    {
+      title: "Bad Buddy Movie Night",
+      date: "2026-05-17",
+      city: "Mumbai",
+      venue: "Fan venue, Mumbai",
+      status: "past",
+      imageUrl: "photos%20and%20videos/1000172856.jpg",
+      description: "Fan screening with themed keepsakes, live commentary, and matching bracelets. Photos and highlights inside.",
+      rsvpLink: "",
+      recapLink: "event-watch-party-may-2026.html",
+      rating: "9.0"
+    },
+    {
+      title: "BL Watch Party",
+      date: "2026-06-01",
+      city: "India",
+      venue: "TBA",
+      status: "upcoming",
+      imageUrl: "photos%20and%20videos/1000172854.jpg",
+      description: "Screening title, city, and RSVP window will be shared closer to the date. Register your interest now.",
+      rsvpLink: "rsvp.html",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "BL Watch Party",
+      date: "2026-07-01",
+      city: "India",
+      venue: "TBA",
+      status: "upcoming",
+      imageUrl: "photos%20and%20videos/1000172849.jpg",
+      description: "Details and RSVP window coming soon. Drop your interest so we can share updates directly with you.",
+      rsvpLink: "rsvp.html",
+      recapLink: "",
+      rating: ""
+    }
   ];
-  el.innerHTML = filters.map(f =>
-    `<button class="wp-chip${f.value === activeFilter ? ' wp-chip--active' : ''}" data-filter="${esc(f.value)}">${esc(f.label)}</button>`
-  ).join('');
-}
 
-// ─── STATE + FILTER ───────────────────────────────────────────────────────────
-let allEvents = [];
-let activeFilter = 'all';
-let searchQuery = '';
+  let activeFilter = "all";
+  let searchQuery = "";
+  let debounceTimer;
 
-function getVisible() {
-  const q = searchQuery.toLowerCase();
-  return allEvents.filter(e => {
-    const matchSearch = !q
-      || e.title.toLowerCase().includes(q)
-      || e.city.toLowerCase().includes(q)
-      || e.venue.toLowerCase().includes(q)
-      || e.description.toLowerCase().includes(q);
-    const matchFilter =
-      activeFilter === 'all'
-      || activeFilter === e.status
-      || (activeFilter.startsWith('city:') && e.city === activeFilter.slice(5));
-    return matchSearch && matchFilter;
-  });
-}
+  const chipsEl = document.getElementById("wp-chips");
+  const rowsEl = document.getElementById("wp-rows");
+  const emptyEl = document.getElementById("wp-empty");
+  const searchEl = document.getElementById("wp-search");
 
-function buildRows(events) {
-  const upcoming = events
-    .filter(e => e.status === 'upcoming' || e.status === 'full')
-    .sort((a, b) => a.date.localeCompare(b.date));
-  const past = events
-    .filter(e => e.status === 'past' || e.status === 'cancelled')
-    .sort((a, b) => b.date.localeCompare(a.date));
-  const rows = [];
-  if (upcoming.length) rows.push(['Coming Up', upcoming]);
-  if (past.length) rows.push(['Past Events', past]);
-  return rows;
-}
+  function formatDate(dateStr) {
+    if (!dateStr) return "";
+    const d = new Date(dateStr + "T00:00:00");
+    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
 
-function getCities(events) {
-  const seen = new Set();
-  const out = [];
-  for (const e of events) {
-    if (e.city && e.city !== 'TBA' && !seen.has(e.city)) {
-      seen.add(e.city);
-      out.push(e.city);
+  function renderChips() {
+    const filters = ["All", "Upcoming", "Past"];
+    chipsEl.innerHTML = filters.map(f => {
+      const val = f.toLowerCase();
+      const active = activeFilter === val ? " wp-chip--active" : "";
+      return `<button class="wp-chip${active}" data-filter="${val}">${f}</button>`;
+    }).join("");
+    chipsEl.querySelectorAll(".wp-chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.filter;
+        renderChips();
+        buildRows();
+      });
+    });
+  }
+
+  function getVisible() {
+    return EVENTS.filter(ev => {
+      const matchFilter = activeFilter === "all" || ev.status === activeFilter;
+      const q = searchQuery.toLowerCase();
+      const matchSearch = !q || [ev.title, ev.city, ev.venue, ev.description].some(f => f && f.toLowerCase().includes(q));
+      return matchFilter && matchSearch;
+    });
+  }
+
+  function renderCard(ev) {
+    const link = ev.recapLink || ev.rsvpLink || "";
+    const el = document.createElement(link ? "a" : "div");
+    el.className = "wp-card";
+    if (link) el.href = link;
+    el.setAttribute("role", "listitem");
+
+    const badgeClass = { upcoming: "wp-badge--upcoming", past: "wp-badge--past", full: "wp-badge--full", cancelled: "wp-badge--cancelled" }[ev.status] || "wp-badge--upcoming";
+    const badgeLabel = ev.status.charAt(0).toUpperCase() + ev.status.slice(1);
+    const ctaText = ev.recapLink ? "View recap →" : ev.rsvpLink ? "Register interest →" : "";
+    const dateLabel = formatDate(ev.date);
+    const desc = (ev.description || "").slice(0, 110);
+
+    el.innerHTML = `
+      <div class="wp-card-thumb">
+        ${ev.imageUrl ? `<img src="${ev.imageUrl}" alt="" loading="lazy" />` : `<p class="wp-card-ph-title">${ev.title}</p>`}
+        <span class="wp-badge ${badgeClass}">${badgeLabel}</span>
+        ${ev.rating ? `<span class="wp-rating">★ ${ev.rating}</span>` : ""}
+        <div class="wp-card-overlay">
+          <span class="wp-ov-title">${ev.title}</span>
+          <p class="wp-ov-meta">${dateLabel}${ev.city ? " · " + ev.city : ""}</p>
+          <p class="wp-ov-desc">${desc}${ev.description && ev.description.length > 110 ? "…" : ""}</p>
+        </div>
+      </div>
+      <div class="wp-card-info">
+        <p class="wp-card-title">${ev.title}</p>
+        <p class="wp-card-meta">${dateLabel}${ev.city ? " · " + ev.city : ""}</p>
+        ${ctaText ? `<span class="wp-card-cta">${ctaText}</span>` : ""}
+      </div>`;
+    return el;
+  }
+
+  function buildRows() {
+    const visible = getVisible();
+    rowsEl.innerHTML = "";
+
+    if (!visible.length) {
+      emptyEl.hidden = false;
+      return;
+    }
+    emptyEl.hidden = true;
+
+    const groups = [
+      { label: "Coming Up", items: visible.filter(e => e.status === "upcoming") },
+      { label: "Past Events", items: visible.filter(e => e.status === "past") }
+    ].filter(g => g.items.length);
+
+    groups.forEach(group => {
+      const section = document.createElement("div");
+      const scrollId = "scroll-" + group.label.replace(/\s+/g, "-").toLowerCase();
+
+      section.innerHTML = `
+        <div class="wp-row-header">
+          <span class="wp-row-title">${group.label}</span>
+          <div class="wp-row-arrows">
+            <button class="wp-arrow" data-dir="-1" aria-label="Scroll left">&#8592;</button>
+            <button class="wp-arrow" data-dir="1" aria-label="Scroll right">&#8594;</button>
+          </div>
+        </div>
+        <div class="wp-scroll" id="${scrollId}"></div>`;
+
+      const scroll = section.querySelector(".wp-scroll");
+      group.items.forEach(ev => scroll.appendChild(renderCard(ev)));
+
+      section.querySelectorAll(".wp-arrow").forEach(btn => {
+        btn.addEventListener("click", () => {
+          scroll.scrollBy({ left: parseInt(btn.dataset.dir) * 280, behavior: "smooth" });
+        });
+      });
+
+      rowsEl.appendChild(section);
+    });
+  }
+
+  function init() {
+    const hero = document.getElementById("wp-hero");
+    if (hero) {
+      const featured = EVENTS.find(e => e.imageUrl) || EVENTS[0];
+      if (featured && featured.imageUrl) {
+        hero.classList.add("wp-hero--has-image");
+        hero.innerHTML = `
+          <img class="wp-hero-img" src="${featured.imageUrl}" alt="" loading="lazy" />
+          <div class="wp-hero-gradient"></div>
+          <div class="wp-hero-content page-shell">
+            <p class="eyebrow">BL Watch Parties</p>
+            <h1 class="wp-hero-title">Curated BL screenings, month by month.</h1>
+            <p class="wp-hero-desc">Recap links, photo dumps, live commentary, and fan moments across India.</p>
+          </div>`;
+      }
+    }
+
+    renderChips();
+    buildRows();
+
+    if (searchEl) {
+      searchEl.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          searchQuery = searchEl.value.trim();
+          buildRows();
+        }, 200);
+      });
     }
   }
-  return out.length > 1 ? out : [];
-}
 
-function rerender() {
-  const visible = getVisible();
-  const rowsEl = document.getElementById('wp-rows');
-  const emptyEl = document.getElementById('wp-empty');
-  if (!rowsEl || !emptyEl) return;
-
-  if (!visible.length) {
-    rowsEl.innerHTML = '';
-    emptyEl.hidden = false;
-    return;
-  }
-  emptyEl.hidden = true;
-  rowsEl.innerHTML = buildRows(visible).map(([t, evts]) => renderRow(t, evts)).join('');
-}
-
-// ─── INIT ────────────────────────────────────────────────────────────────────
-async function init() {
-  if (!document.getElementById('wp-hero')) return;
-
-  const rowsEl = document.getElementById('wp-rows');
-  if (rowsEl) rowsEl.innerHTML = '<p class="wp-loading">Loading events…</p>';
-
-  allEvents = await fetchEvents();
-
-  const heroEvent = allEvents.find(e => e.featured) || allEvents.find(e => e.status === 'upcoming');
-  renderHero(heroEvent);
-  renderChips(activeFilter, getCities(allEvents));
-  rerender();
-
-  // Scroll arrows
-  document.getElementById('wp-rows')?.addEventListener('click', e => {
-    const btn = e.target.closest('.wp-arrow');
-    if (!btn) return;
-    const scroll = document.querySelector(`#${btn.dataset.row} .wp-scroll`);
-    scroll?.scrollBy({ left: Number(btn.dataset.dir) * 290, behavior: 'smooth' });
-  });
-
-  // Search
-  let debounce;
-  document.getElementById('wp-search')?.addEventListener('input', e => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      searchQuery = e.target.value;
-      rerender();
-    }, 200);
-  });
-
-  // Filter chips
-  document.getElementById('wp-chips')?.addEventListener('click', e => {
-    const chip = e.target.closest('.wp-chip');
-    if (!chip) return;
-    activeFilter = chip.dataset.filter;
-    renderChips(activeFilter, getCities(allEvents));
-    rerender();
-  });
-}
-
-init();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", init) : init();
+})();

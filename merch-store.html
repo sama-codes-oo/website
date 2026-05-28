@@ -10,33 +10,24 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header">
     <div class="nav-wrap">
-      <a class="brand" href="index.html" aria-label="BLxKpopCrew home"><img class="brand-logo" src="photos%20and%20videos/logo.jpg" alt="" width="498" height="689" /><span>BLxKpopCrew</span></a>
-      <nav aria-label="Main navigation"><ul class="nav-links" id="nav-links"><li><a href="events.html">Events</a></li><li><a href="talk-zone.html">BL Talk Zone</a></li><li><a href="archive.html">Archive</a></li><li><a href="merch-store.html" aria-current="page">Merch</a></li></ul></nav>
-      <div class="nav-actions">
-        <a href="watch-parties.html" class="nav-cta btn">RSVP →</a>
-        <button class="icon-btn" type="button" id="theme-toggle" aria-label="Switch to dark mode"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.99 12.62A8.5 8.5 0 1 1 11.38 3.01 6.5 6.5 0 0 0 20.99 12.62Z"></path></svg></button>
-        <button class="icon-btn menu-toggle" type="button" id="menu-toggle" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false"><svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
-      </div>
+      <a class="brand" href="index.html#home"><img class="brand-logo" src="photos%20and%20videos/logo.jpg" alt="" width="498" height="689" /><span>BLxKpopCrew</span></a>
+      <nav aria-label="Main navigation"><ul class="nav-links" id="nav-links"><li><a href="index.html#events">Events</a></li><li><a href="archive.html">Archive</a></li><li><a href="talk-zone.html">BL Talk Zone</a></li><li><a href="announcements.html">Announcements</a></li><li><a href="merch-store.html" aria-current="page">Merch</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav>
+      <div class="nav-actions"><button class="icon-btn" type="button" id="search-toggle" aria-label="Search site"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></button><a href="rsvp.html" class="nav-cta btn">RSVP →</a><button class="icon-btn" type="button" id="theme-toggle" aria-label="Switch to dark mode"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.99 12.62A8.5 8.5 0 1 1 11.38 3.01 6.5 6.5 0 0 0 20.99 12.62Z"></path></svg></button><button class="icon-btn menu-toggle" type="button" id="menu-toggle" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false"><svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button></div>
     </div>
   </header>
   <main id="main" class="page-shell">
-    <section class="section-block">
-      <div class="merch-coming">
-        <span class="merch-coming__badge">Opening soon</span>
-        <h1>Official BLxKpopCrew Merch</h1>
-        <p class="merch-coming__sub">Event keepsakes, photocards, badges, and fan-table drops — all in one place. Drop your email to be first in line.</p>
-        <form class="notify-form" id="merch-notify-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="notify-row">
-            <input type="email" name="email" placeholder="your@email.com" aria-label="Email for merch notifications" required />
-            <button class="btn" type="submit">Notify me</button>
-          </div>
-          <p class="form-status" id="merch-notify-status" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-      <div class="merch-preview-grid">
-        <div class="merch-preview-card"><img loading="lazy" src="photos%20and%20videos/1000172854.jpg" alt="Event ticket keepsake" /><span class="merch-preview-card__label">Event keepsakes</span></div>
-        <div class="merch-preview-card"><img loading="lazy" src="photos%20and%20videos/1000172849.jpg" alt="Printed fan cards" /><span class="merch-preview-card__label">Fan table drops</span></div>
-        <div class="merch-preview-card"><img loading="lazy" src="photos%20and%20videos/1000172856.jpg" alt="Community merch at a meetup" /><span class="merch-preview-card__label">Community pieces</span></div>
+    <section class="page-hero" aria-labelledby="merch-title">
+      <p class="eyebrow">Official link</p>
+      <h1 id="merch-title">Merch Store</h1>
+      <p class="hero-copy">Official BLxKpopCrew merch drops, event keepsakes, fan table updates, and collaboration pieces will be collected here.</p>
+      <div class="button-row"><a class="btn" href="index.html#contact">Ask about merch</a><span class="btn secondary">Store opens soon</span></div>
+    </section>
+    <section class="section-block" aria-labelledby="merch-notes-title">
+      <div class="section-head"><div><p class="eyebrow">Drops</p><h2 id="merch-notes-title">Merch notes</h2></div></div>
+      <div class="grid">
+        <article class="card"><span class="tag">Drops</span><h3>Event keepsakes</h3><p>Tickets, photocards, badges, and event-themed pieces from crew moments.</p></article>
+        <article class="card"><span class="tag">Fan tables</span><h3>Community merch</h3><p>Partner artists, fan-made tables, and limited pop-up drops.</p></article>
+        <article class="card"><span class="tag">Orders</span><h3>Contact before launch</h3><p>Fans can send merch questions through Contact Us until the official store link is added.</p></article>
       </div>
     </section>
   </main>
@@ -47,24 +38,20 @@
       <div><h4 class="footer-col-head">Events</h4><ul class="footer-links-col"><li><a href="watch-parties.html">Watch Parties</a></li><li><a href="kpop-crossover-nights.html">K-pop Nights</a></li><li><a href="popups-partnerships.html">Pop-ups</a></li></ul></div>
       <div><h4 class="footer-col-head">Get notified</h4><p class="footer-notify-desc">Event drops, RSVP windows, and crew updates.</p><form class="notify-form" id="footer-notify-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"><div class="notify-row"><input type="email" name="email" placeholder="your@email.com" aria-label="Email for event notifications" required /><button class="btn" type="submit">Notify me</button></div><p class="form-status" id="footer-notify-status" role="status" aria-live="polite"></p></form></div>
     </div>
-    <div class="footer-bottom"><div class="footer-bottom-inner page-shell"><span>© 2026 BLxKpopCrew. Fan-led, culture-first, community-made.</span><a href="mailto:blxkpopcrew.in@gmail.com">blxkpopcrew.in@gmail.com</a></div></div>
+    <div class="footer-bottom"><div class="footer-bottom-inner page-shell"><span>© 2026 BLxKpopCrew. Fan-led, culture-first, community-made.</span><span>India</span><a href="mailto:blxkpopcrew.in@gmail.com">blxkpopcrew.in@gmail.com</a></div></div>
   </footer>
+
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-label="Search" aria-modal="true" hidden>
+    <div class="search-overlay__inner">
+      <div class="search-bar">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        <input type="search" id="search-input" placeholder="Search events, reviews, archive..." autocomplete="off" />
+        <button class="icon-btn" type="button" id="search-close" aria-label="Close search"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div class="search-results" id="search-results" role="list"></div>
+    </div>
+  </div>
+
   <script src="script.js?v=theme-icons"></script>
-  <script>
-document.getElementById('merch-notify-form')?.addEventListener('submit', async e => {
-  e.preventDefault();
-  const form = e.currentTarget;
-  const status = document.getElementById('merch-notify-status');
-  status.className = 'form-status';
-  if (form.action.includes('YOUR_FORM_ID')) { status.textContent = 'Add your Formspree ID to enable notifications.'; return; }
-  try {
-    const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-    if (!res.ok) throw new Error();
-    form.reset();
-    status.textContent = "You're on the list.";
-    status.classList.add('is-success');
-  } catch { status.textContent = 'Something went wrong. Email us.'; status.classList.add('is-error'); }
-});
-  </script>
 </body>
 </html>

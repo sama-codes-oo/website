@@ -1,38 +1,38 @@
 (function () {
   const EVENTS = [
     {
-      title: "K-pop Crossover Night",
-      date: "2026-05-01",
+      title: "Cafe Pop-up",
+      date: "",
       city: "India",
-      venue: "TBA",
+      venue: "Partner cafe or creator space",
       status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172855.jpg",
-      description: "Playlist night with comeback celebrations, fan games, and themed swaps across cities.",
-      rsvpLink: "rsvp.html",
+      imageUrl: "photos%20and%20videos/1000172849.jpg",
+      description: "Partner cafe or creator space event with a fan table, themed menu, and community activities alongside BLxKpopCrew.",
+      rsvpLink: "index.html#contact",
       recapLink: "",
       rating: ""
     },
     {
-      title: "K-pop Crossover Night",
-      date: "2026-06-01",
+      title: "Fan Table Event",
+      date: "",
+      city: "India",
+      venue: "Partner venue",
+      status: "upcoming",
+      imageUrl: "photos%20and%20videos/1000172855.jpg",
+      description: "Community fan table with merch, photocard trades, and fandom activities at a partner venue.",
+      rsvpLink: "index.html#contact",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "Partnership Night",
+      date: "",
       city: "India",
       venue: "TBA",
       status: "upcoming",
       imageUrl: "photos%20and%20videos/1000172856.jpg",
-      description: "Theme, featured artists, city, and activities will be shared closer to the date.",
-      rsvpLink: "rsvp.html",
-      recapLink: "",
-      rating: ""
-    },
-    {
-      title: "K-pop Crossover Night",
-      date: "2026-07-01",
-      city: "India",
-      venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172854.jpg",
-      description: "Theme, featured artists, city, and activities will be shared closer to the date.",
-      rsvpLink: "rsvp.html",
+      description: "Creator, brand, or store collaboration with a BLxKpopCrew-curated fan experience attached.",
+      rsvpLink: "index.html#contact",
       recapLink: "",
       rating: ""
     }
@@ -46,12 +46,6 @@
   const rowsEl = document.getElementById("wp-rows");
   const emptyEl = document.getElementById("wp-empty");
   const searchEl = document.getElementById("wp-search");
-
-  function formatDate(dateStr) {
-    if (!dateStr) return "";
-    const d = new Date(dateStr + "T00:00:00");
-    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
-  }
 
   function renderChips() {
     const filters = ["All", "Upcoming", "Past"];
@@ -86,26 +80,24 @@
     el.setAttribute("role", "listitem");
 
     const badgeClass = { upcoming: "wp-badge--upcoming", past: "wp-badge--past" }[ev.status] || "wp-badge--upcoming";
-    const badgeLabel = ev.status.charAt(0).toUpperCase() + ev.status.slice(1);
-    const ctaText = ev.recapLink ? "View recap →" : ev.rsvpLink ? "Register interest →" : "";
-    const dateLabel = formatDate(ev.date);
+    const badgeLabel = "Open";
+    const ctaText = ev.recapLink ? "View recap →" : "Reach out to collab →";
     const desc = (ev.description || "").slice(0, 110);
 
     el.innerHTML = `
       <div class="wp-card-thumb">
         ${ev.imageUrl ? `<img src="${ev.imageUrl}" alt="" loading="lazy" />` : `<p class="wp-card-ph-title">${ev.title}</p>`}
         <span class="wp-badge ${badgeClass}">${badgeLabel}</span>
-        ${ev.rating ? `<span class="wp-rating">★ ${ev.rating}</span>` : ""}
         <div class="wp-card-overlay">
           <span class="wp-ov-title">${ev.title}</span>
-          <p class="wp-ov-meta">${dateLabel}${ev.city ? " · " + ev.city : ""}</p>
+          <p class="wp-ov-meta">${ev.city ? ev.city : ""}${ev.venue && ev.venue !== "TBA" ? " · " + ev.venue : ""}</p>
           <p class="wp-ov-desc">${desc}${ev.description && ev.description.length > 110 ? "…" : ""}</p>
         </div>
       </div>
       <div class="wp-card-info">
         <p class="wp-card-title">${ev.title}</p>
-        <p class="wp-card-meta">${dateLabel}${ev.city ? " · " + ev.city : ""}</p>
-        ${ctaText ? `<span class="wp-card-cta">${ctaText}</span>` : ""}
+        <p class="wp-card-meta">Partner x BLxKpopCrew · ${ev.city}</p>
+        <span class="wp-card-cta">${ctaText}</span>
       </div>`;
     return el;
   }
@@ -120,34 +112,27 @@
     }
     emptyEl.hidden = true;
 
-    const groups = [
-      { label: "Coming Up", items: visible.filter(e => e.status === "upcoming") },
-      { label: "Past Events", items: visible.filter(e => e.status === "past") }
-    ].filter(g => g.items.length);
-
-    groups.forEach(group => {
-      const section = document.createElement("div");
-      section.innerHTML = `
-        <div class="wp-row-header">
-          <span class="wp-row-title">${group.label}</span>
-          <div class="wp-row-arrows">
-            <button class="wp-arrow" data-dir="-1" aria-label="Scroll left">&#8592;</button>
-            <button class="wp-arrow" data-dir="1" aria-label="Scroll right">&#8594;</button>
-          </div>
+    const section = document.createElement("div");
+    section.innerHTML = `
+      <div class="wp-row-header">
+        <span class="wp-row-title">Open for Collabs</span>
+        <div class="wp-row-arrows">
+          <button class="wp-arrow" data-dir="-1" aria-label="Scroll left">&#8592;</button>
+          <button class="wp-arrow" data-dir="1" aria-label="Scroll right">&#8594;</button>
         </div>
-        <div class="wp-scroll"></div>`;
+      </div>
+      <div class="wp-scroll"></div>`;
 
-      const scroll = section.querySelector(".wp-scroll");
-      group.items.forEach(ev => scroll.appendChild(renderCard(ev)));
+    const scroll = section.querySelector(".wp-scroll");
+    visible.forEach(ev => scroll.appendChild(renderCard(ev)));
 
-      section.querySelectorAll(".wp-arrow").forEach(btn => {
-        btn.addEventListener("click", () => {
-          scroll.scrollBy({ left: parseInt(btn.dataset.dir) * 280, behavior: "smooth" });
-        });
+    section.querySelectorAll(".wp-arrow").forEach(btn => {
+      btn.addEventListener("click", () => {
+        scroll.scrollBy({ left: parseInt(btn.dataset.dir) * 280, behavior: "smooth" });
       });
-
-      rowsEl.appendChild(section);
     });
+
+    rowsEl.appendChild(section);
   }
 
   function init() {
@@ -155,12 +140,12 @@
     if (hero) {
       hero.classList.add("wp-hero--has-image");
       hero.innerHTML = `
-        <img class="wp-hero-img" src="photos%20and%20videos/1000172855.jpg" alt="" loading="lazy" />
+        <img class="wp-hero-img" src="photos%20and%20videos/1000172849.jpg" alt="" loading="lazy" />
         <div class="wp-hero-gradient"></div>
         <div class="wp-hero-content page-shell">
-          <p class="eyebrow">K-pop Crossover Nights</p>
-          <h1 class="wp-hero-title">Playlist nights, comebacks, and fan swaps.</h1>
-          <p class="wp-hero-desc">Monthly K-pop crossover events across India with themed swaps, fan games, and comeback celebrations.</p>
+          <p class="eyebrow">Pop-ups and Partnerships</p>
+          <h1 class="wp-hero-title">Collaborations, fan tables, and pop-ups.</h1>
+          <p class="wp-hero-desc">Partner-led fan experiences with BLxKpopCrew. Reach out to co-host a cafe pop-up, fan table, or brand night.</p>
         </div>`;
     }
 
