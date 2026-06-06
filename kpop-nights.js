@@ -1,38 +1,58 @@
 (function () {
   const EVENTS = [
     {
-      title: "K-pop Crossover Night",
-      date: "2026-05-01",
-      city: "India",
-      venue: "TBA",
+      title: "13 YEARS OF BTS",
+      date: "2026-06-14",
+      city: "Mumbai",
+      venue: "Andheri, Mumbai",
       status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172855.jpg",
-      description: "Playlist night with comeback celebrations, fan games, and themed swaps across cities.",
-      rsvpLink: "rsvp.html",
+      imageUrl: "photos%20and%20videos/BTS_13th_Anniversary.jpeg",
+      description: "Celebrate 13 unforgettable years of BTS with DJ sets, Random Dance Play, games, canvas painting, and Korean food!",
+      rsvpLink: "https://forms.gle/8WV3Ut4A7bCttGw19",
       recapLink: "",
       rating: ""
     },
     {
-      title: "K-pop Crossover Night",
-      date: "2026-06-01",
-      city: "India",
+      title: "K-pop Crossover – Arirang Live Screening",
+      date: "2025-08-01",
+      city: "Mumbai",
       venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172856.jpg",
-      description: "Theme, featured artists, city, and activities will be shared closer to the date.",
-      rsvpLink: "rsvp.html",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/IMG_2044.JPG",
+      description: "An exciting live screening of Arirang!",
       recapLink: "",
       rating: ""
     },
     {
-      title: "K-pop Crossover Night",
-      date: "2026-07-01",
-      city: "India",
+      title: "K-pop Crossover – July BTS Screening",
+      date: "2025-07-15",
+      city: "Mumbai",
       venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172854.jpg",
-      description: "Theme, featured artists, city, and activities will be shared closer to the date.",
-      rsvpLink: "rsvp.html",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/15253d21-19db-417f-9bf8-81888b14c724.jpg",
+      description: "Celebrating BTS in July with fans.",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "K-pop Crossover – K Harmony Festa",
+      date: "2025-10-12",
+      city: "Mumbai",
+      venue: "TBA",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/20251012_151119368.jpg",
+      description: "A festival of K-pop harmony!",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "K-pop Crossover – Sept BTS Screening",
+      date: "2025-09-20",
+      city: "Mumbai",
+      venue: "TBA",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/IMG_4691.JPG",
+      description: "More BTS magic in September.",
       recapLink: "",
       rating: ""
     }
@@ -79,7 +99,7 @@
   }
 
   function renderCard(ev) {
-    const link = ev.recapLink || ev.rsvpLink || "";
+    const link = ev.recapLink || ev.rsvpLink || (ev.status === "past" ? `archive.html#${ev.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}` : "");
     const el = document.createElement(link ? "a" : "div");
     el.className = "wp-card";
     if (link) el.href = link;

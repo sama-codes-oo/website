@@ -1,38 +1,58 @@
 (function () {
   const EVENTS = [
     {
-      title: "Bad Buddy Movie Night",
-      date: "2026-05-17",
+      title: "Pride Month Watch Party – Mumbai Edition",
+      date: "2026-06-21",
       city: "Mumbai",
-      venue: "Fan venue, Mumbai",
-      status: "past",
-      imageUrl: "photos%20and%20videos/1000172856.jpg",
-      description: "Fan screening with themed keepsakes, live commentary, and matching bracelets. Photos and highlights inside.",
-      rsvpLink: "",
-      recapLink: "event-watch-party-may-2026.html",
-      rating: "9.0"
-    },
-    {
-      title: "BL Watch Party",
-      date: "2026-06-01",
-      city: "India",
-      venue: "TBA",
+      venue: "TBA (Mumbai)",
       status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172854.jpg",
-      description: "Screening title, city, and RSVP window will be shared closer to the date. Register your interest now.",
-      rsvpLink: "rsvp.html",
+      imageUrl: "photos%20and%20videos/PrideMonthWatchParty.jpeg",
+      description: "Celebrate Pride & World Yoga Day with BL watch party screenings of Ticket to Heaven and Love Upon a Time!",
+      rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdJCpkHR8uKYchJi1617_DldbyP7eRETri9wtgb4RBGmig6yg/viewform?usp=publish-editor",
       recapLink: "",
       rating: ""
     },
     {
-      title: "BL Watch Party",
-      date: "2026-07-01",
-      city: "India",
+      title: "BL Watch Party – March 2026",
+      date: "2026-03-15",
+      city: "Mumbai",
       venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172849.jpg",
-      description: "Details and RSVP window coming soon. Drop your interest so we can share updates directly with you.",
-      rsvpLink: "rsvp.html",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/IMG_1325.JPG",
+      description: "Our March screening featuring the latest hits!",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "BL Watch Party – Dec 2025 Anniversary",
+      date: "2025-12-20",
+      city: "Mumbai",
+      venue: "TBA",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/IMG_8416.JPG",
+      description: "A special anniversary screening to wrap up the year.",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "BL Watch Party – June 2025",
+      date: "2025-06-10",
+      city: "Mumbai",
+      venue: "TBA",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/22da1c57-5bd3-46e1-b597-b1a2a9254d8b.JPG",
+      description: "Summer vibes and great dramas.",
+      recapLink: "",
+      rating: ""
+    },
+    {
+      title: "BL Watch Party – May 2025",
+      date: "2025-05-05",
+      city: "Mumbai",
+      venue: "TBA",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/9083c603-492c-4346-9a75-87c08e9c4a6b.JPG",
+      description: "Kickstarting the season with fan favorites.",
       recapLink: "",
       rating: ""
     }
@@ -79,15 +99,21 @@
   }
 
   function renderCard(ev) {
-    const link = ev.recapLink || ev.rsvpLink || "";
+    const badgeClass = { upcoming: "wp-badge--upcoming", past: "wp-badge--past", full: "wp-badge--full", cancelled: "wp-badge--cancelled" }[ev.status] || "wp-badge--upcoming";
+    const badgeLabel = ev.status.charAt(0).toUpperCase() + ev.status.slice(1);
+    
+    let link = ev.recapLink || ev.rsvpLink || "";
+    if (ev.status === "past" && !link) {
+      const slug = ev.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      link = `archive.html#${slug}`;
+    }
+
     const el = document.createElement(link ? "a" : "div");
     el.className = "wp-card";
     if (link) el.href = link;
     el.setAttribute("role", "listitem");
 
-    const badgeClass = { upcoming: "wp-badge--upcoming", past: "wp-badge--past", full: "wp-badge--full", cancelled: "wp-badge--cancelled" }[ev.status] || "wp-badge--upcoming";
-    const badgeLabel = ev.status.charAt(0).toUpperCase() + ev.status.slice(1);
-    const ctaText = ev.recapLink ? "View recap →" : ev.rsvpLink ? "Register interest →" : "";
+    const ctaText = ev.recapLink ? "View recap →" : ev.rsvpLink ? "Register interest →" : ev.status === "past" ? "View archive →" : "";
     const dateLabel = formatDate(ev.date);
     const desc = (ev.description || "").slice(0, 110);
 

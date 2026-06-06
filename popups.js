@@ -35,6 +35,17 @@
       rsvpLink: "index.html#contact",
       recapLink: "",
       rating: ""
+    },
+    {
+      title: "HYBE Pop-up Mumbai",
+      date: "2025-05-15",
+      city: "Mumbai",
+      venue: "HYBE Pop-up Space",
+      status: "past",
+      imageUrl: "photos%20and%20videos/event-archive/12e6efb9-68f4-4d11-9e41-c10e32f76cbd.jpg",
+      description: "An exclusive HYBE pop-up experience in Mumbai with themed merch and fan activities.",
+      recapLink: "",
+      rating: ""
     }
   ];
 
@@ -73,15 +84,15 @@
   }
 
   function renderCard(ev) {
-    const link = ev.recapLink || ev.rsvpLink || "";
+    const link = ev.recapLink || ev.rsvpLink || (ev.status === "past" ? `archive.html#${ev.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}` : "");
     const el = document.createElement(link ? "a" : "div");
     el.className = "wp-card";
     if (link) el.href = link;
     el.setAttribute("role", "listitem");
 
     const badgeClass = { upcoming: "wp-badge--upcoming", past: "wp-badge--past" }[ev.status] || "wp-badge--upcoming";
-    const badgeLabel = "Open";
-    const ctaText = ev.recapLink ? "View recap →" : "Reach out to collab →";
+    const badgeLabel = ev.status.charAt(0).toUpperCase() + ev.status.slice(1);
+    const ctaText = ev.recapLink ? "View recap →" : ev.rsvpLink ? "Register interest →" : "";
     const desc = (ev.description || "").slice(0, 110);
 
     el.innerHTML = `
@@ -112,27 +123,36 @@
     }
     emptyEl.hidden = true;
 
-    const section = document.createElement("div");
-    section.innerHTML = `
-      <div class="wp-row-header">
-        <span class="wp-row-title">Open for Collabs</span>
-        <div class="wp-row-arrows">
-          <button class="wp-arrow" data-dir="-1" aria-label="Scroll left">&#8592;</button>
-          <button class="wp-arrow" data-dir="1" aria-label="Scroll right">&#8594;</button>
+    const groups = [
+      { label: "Coming Up", items: visible.filter(e => e.status === "upcoming") },
+      { label: "Past Events", items: visible.filter(e => e.status === "past") }
+    ].filter(g => g.items.length);
+
+    groups.forEach(group => {
+      const section = document.createElement("div");
+      const scrollId = "scroll-" + group.label.replace(/\s+/g, "-").toLowerCase();
+
+      section.innerHTML = `
+        <div class="wp-row-header">
+          <span class="wp-row-title">${group.label}</span>
+          <div class="wp-row-arrows">
+            <button class="wp-arrow" data-dir="-1" aria-label="Scroll left">&#8592;</button>
+            <button class="wp-arrow" data-dir="1" aria-label="Scroll right">&#8594;</button>
+          </div>
         </div>
-      </div>
-      <div class="wp-scroll"></div>`;
+        <div class="wp-scroll" id="${scrollId}"></div>`;
 
-    const scroll = section.querySelector(".wp-scroll");
-    visible.forEach(ev => scroll.appendChild(renderCard(ev)));
+      const scroll = section.querySelector(".wp-scroll");
+      group.items.forEach(ev => scroll.appendChild(renderCard(ev)));
 
-    section.querySelectorAll(".wp-arrow").forEach(btn => {
-      btn.addEventListener("click", () => {
-        scroll.scrollBy({ left: parseInt(btn.dataset.dir) * 280, behavior: "smooth" });
+      section.querySelectorAll(".wp-arrow").forEach(btn => {
+        btn.addEventListener("click", () => {
+          scroll.scrollBy({ left: parseInt(btn.dataset.dir) * 280, behavior: "smooth" });
+        });
       });
-    });
 
-    rowsEl.appendChild(section);
+      rowsEl.appendChild(section);
+    });
   }
 
   function init() {
