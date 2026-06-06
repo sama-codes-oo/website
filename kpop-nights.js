@@ -1,38 +1,14 @@
 (function () {
   const EVENTS = [
     {
-      title: "K-pop Crossover Night",
-      date: "2026-05-01",
-      city: "India",
-      venue: "TBA",
+      title: "13 YEARS OF BTS",
+      date: "2026-06-14",
+      city: "Mumbai",
+      venue: "Andheri, Mumbai",
       status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172855.jpg",
-      description: "Playlist night with comeback celebrations, fan games, and themed swaps across cities.",
-      rsvpLink: "rsvp.html",
-      recapLink: "",
-      rating: ""
-    },
-    {
-      title: "K-pop Crossover Night",
-      date: "2026-06-01",
-      city: "India",
-      venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172856.jpg",
-      description: "Theme, featured artists, city, and activities will be shared closer to the date.",
-      rsvpLink: "rsvp.html",
-      recapLink: "",
-      rating: ""
-    },
-    {
-      title: "K-pop Crossover Night",
-      date: "2026-07-01",
-      city: "India",
-      venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172854.jpg",
-      description: "Theme, featured artists, city, and activities will be shared closer to the date.",
-      rsvpLink: "rsvp.html",
+      imageUrl: "photos%20and%20videos/BTS_13th_Anniversary.jpeg",
+      description: "Celebrate 13 unforgettable years of BTS with DJ sets, Random Dance Play, games, canvas painting, and Korean food!",
+      rsvpLink: "https://forms.gle/8WV3Ut4A7bCttGw19",
       recapLink: "",
       rating: ""
     }

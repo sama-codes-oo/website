@@ -1,4 +1,4 @@
-const root = document.documentElement;
+﻿const root = document.documentElement;
 const nav = document.getElementById("nav-links");
 const menuToggle = document.getElementById("menu-toggle");
 const themeToggle = document.getElementById("theme-toggle");
@@ -64,7 +64,7 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach((section) => observer.observe(section));
 
-// ── Search overlay ────────────────────────────────────────
+// â”€â”€ Search overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const searchOverlay = document.getElementById("search-overlay");
 const searchToggle = document.getElementById("search-toggle");
 const searchClose = document.getElementById("search-close");
@@ -73,14 +73,23 @@ const searchResults = document.getElementById("search-results");
 
 const SEARCH_INDEX = [
   { label: "Events", title: "BL Watch Parties", desc: "Curated BL screenings grouped by month.", href: "watch-parties.html" },
-  { label: "Events", title: "BL Watch Party — May 2026", desc: "Fan meetup recap with photos from May 2026.", href: "event-watch-party-may-2026.html" },
+  { label: "Events", title: "BL Watch Party â€” May 2026", desc: "Fan meetup recap with photos from May 2026.", href: "event-watch-party-may-2026.html" },
   { label: "Events", title: "K-pop Crossover Nights", desc: "Playlist nights, comeback celebrations, and fan game sessions.", href: "kpop-crossover-nights.html" },
   { label: "Events", title: "Pop-ups & Partnerships", desc: "Partner-led fan experiences with cafes, creators, and fan tables.", href: "popups-partnerships.html" },
   { label: "BL Talk Zone", title: "Thai BL Reviews", desc: "Drama recaps, ratings, and episode guides for Thai BL.", href: "talk-zone.html" },
   { label: "BL Talk Zone", title: "Japanese BL Reviews", desc: "Films, live-action dramas, anime, and manga adaptations.", href: "talk-zone.html" },
   { label: "BL Talk Zone", title: "Korean BL Reviews", desc: "Short series, web dramas, and idol-led stories.", href: "talk-zone.html" },
-  { label: "BL Talk Zone", title: "Bad Buddy", desc: "Thai BL. Rating: 9.0. Rivalry, friendship, and first love.", href: "talk-zone.html" },
-  { label: "BL Talk Zone", title: "A Tale of Thousand Stars", desc: "Thai BL. Rating: 8.7. Slow-burn romance and character healing.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Shine", desc: "Thai BL. Rating: 9.3. Drama, choices, and life on the far side of the moon.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Zomvivor", desc: "Thai BL. Rating: 7.1. Zombie survival and plot critique.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Romance Scammer", desc: "Thai BL. Episode 7 review notes.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Khemjira", desc: "Thai BL. Rating: 8.9. Horror, fate, and strong production value.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Goddess Blesses You From Death", desc: "Thai BL. Rating: 9.0. Horror, lore, and chemistry.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "School Trip Joined a Group I Am Not Close To", desc: "Japanese BL. Rating: 8.9. Nostalgic school drama.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "The Boyfriend Season Two", desc: "Japanese BL. Rating: 9.0. Reality dating and connection.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Soulmate", desc: "Korean BL. Rating: 8.7. Connection, destiny, and emotional stillness.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Thundercloud Rainstorm", desc: "Korean BL. Rating: 9.1. Psychological romance with layered storytelling.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "His Man Season Four", desc: "Korean BL. Rating: 7.1. Reality dating season critique.", href: "talk-zone.html" },
+  { label: "BL Talk Zone", title: "Heated Rivalry", desc: "Western BL. Rating: 8.1. Sports romance with abrupt time jumps.", href: "talk-zone.html" },
   { label: "Archive", title: "Photo Archive", desc: "Photos and videos from BLxKpopCrew events.", href: "archive.html" },
   { label: "Merch", title: "Merch Store", desc: "Official merch drops, event keepsakes, and fan table updates.", href: "merch-store.html" },
   { label: "Announcements", title: "Announcements", desc: "Event alerts, RSVP windows, and community updates.", href: "announcements.html" },
@@ -133,7 +142,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && searchOverlay && !searchOverlay.hidden) closeSearch();
 });
 
-// ── Footer notify form ────────────────────────────────────
+// â”€â”€ Footer notify form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.getElementById("footer-notify-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -161,7 +170,7 @@ document.getElementById("footer-notify-form")?.addEventListener("submit", async 
   }
 });
 
-// ── Tab switcher (talk-zone) ──────────────────────────────
+// â”€â”€ Tab switcher (talk-zone) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll("[data-tab-root]").forEach(root => {
   const tabs = root.querySelectorAll(".filter-tab");
   const panels = root.querySelectorAll(".tab-panel");
@@ -177,7 +186,7 @@ document.querySelectorAll("[data-tab-root]").forEach(root => {
   });
 });
 
-// ── Talk-zone search + sort ───────────────────────────────
+// â”€â”€ Talk-zone search + sort â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function runZoneSearch() {
   const input = document.getElementById("zone-search-input");
   if (!input) return;
@@ -272,3 +281,6 @@ if (archiveFilterBtns.length) {
     });
   });
 }
+
+
+

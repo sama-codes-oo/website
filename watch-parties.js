@@ -1,38 +1,14 @@
 (function () {
   const EVENTS = [
     {
-      title: "Bad Buddy Movie Night",
-      date: "2026-05-17",
+      title: "Pride Month Watch Party – Mumbai Edition",
+      date: "2026-06-21",
       city: "Mumbai",
-      venue: "Fan venue, Mumbai",
-      status: "past",
-      imageUrl: "photos%20and%20videos/1000172856.jpg",
-      description: "Fan screening with themed keepsakes, live commentary, and matching bracelets. Photos and highlights inside.",
-      rsvpLink: "",
-      recapLink: "event-watch-party-may-2026.html",
-      rating: "9.0"
-    },
-    {
-      title: "BL Watch Party",
-      date: "2026-06-01",
-      city: "India",
-      venue: "TBA",
+      venue: "TBA (Mumbai)",
       status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172854.jpg",
-      description: "Screening title, city, and RSVP window will be shared closer to the date. Register your interest now.",
-      rsvpLink: "rsvp.html",
-      recapLink: "",
-      rating: ""
-    },
-    {
-      title: "BL Watch Party",
-      date: "2026-07-01",
-      city: "India",
-      venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172849.jpg",
-      description: "Details and RSVP window coming soon. Drop your interest so we can share updates directly with you.",
-      rsvpLink: "rsvp.html",
+      imageUrl: "photos%20and%20videos/PrideMonthWatchParty.jpeg",
+      description: "Celebrate Pride & World Yoga Day with BL watch party screenings of Ticket to Heaven and Love Upon a Time!",
+      rsvpLink: "https://docs.google.com/forms/d/e/1FAIpQLSdJCpkHR8uKYchJi1617_DldbyP7eRETri9wtgb4RBGmig6yg/viewform?usp=publish-editor",
       recapLink: "",
       rating: ""
     }
