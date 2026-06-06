@@ -1,38 +1,14 @@
 (function () {
   const EVENTS = [
     {
-      title: "Cafe Pop-up",
-      date: "",
-      city: "India",
-      venue: "Partner cafe or creator space",
+      title: "13 YEARS OF BTS",
+      date: "2026-06-14",
+      city: "Mumbai",
+      venue: "Andheri, Mumbai",
       status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172849.jpg",
-      description: "Partner cafe or creator space event with a fan table, themed menu, and community activities alongside BLxKpopCrew.",
-      rsvpLink: "index.html#contact",
-      recapLink: "",
-      rating: ""
-    },
-    {
-      title: "Fan Table Event",
-      date: "",
-      city: "India",
-      venue: "Partner venue",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172855.jpg",
-      description: "Community fan table with merch, photocard trades, and fandom activities at a partner venue.",
-      rsvpLink: "index.html#contact",
-      recapLink: "",
-      rating: ""
-    },
-    {
-      title: "Partnership Night",
-      date: "",
-      city: "India",
-      venue: "TBA",
-      status: "upcoming",
-      imageUrl: "photos%20and%20videos/1000172856.jpg",
-      description: "Creator, brand, or store collaboration with a BLxKpopCrew-curated fan experience attached.",
-      rsvpLink: "index.html#contact",
+      imageUrl: "photos%20and%20videos/BTS_13th_Anniversary.jpeg",
+      description: "Celebrate 13 unforgettable years of BTS with DJ sets, Random Dance Play, games, canvas painting, and Korean food!",
+      rsvpLink: "https://forms.gle/8WV3Ut4A7bCttGw19",
       recapLink: "",
       rating: ""
     },
